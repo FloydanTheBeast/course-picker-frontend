@@ -1,21 +1,21 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-	entry: './src/index.tsx',
-	mode: 'development',
-	devtool: 'eval',
+	entry: "./src/index.tsx",
+	mode: "development",
+	devtool: "eval",
 	output: {
-		path: path.resolve(__dirname, 'build'),
-		filename: 'bundle.js',
+		path: path.resolve(__dirname, "build"),
+		filename: "bundle.js"
 	},
 	resolve: {
-		extensions: ['.ts', '.tsx', '.js'],
+		extensions: [".ts", ".tsx", ".js"]
 	},
 	devServer: {
-		contentBase: './build',
+		contentBase: "./build",
 		historyApiFallback: true,
-		port: 8080,
+		port: 8080
 	},
 	module: {
 		rules: [
@@ -24,20 +24,20 @@ module.exports = {
 				exclude: /node_modules/,
 				use: [
 					{
-						loader: 'ts-loader',
-					},
-				],
+						loader: "ts-loader"
+					}
+				]
 			},
 			{
-				enforce: 'pre',
+				enforce: "pre",
 				test: /\.js$/,
-				loader: 'source-map-loader',
-			},
-		],
+				loader: "source-map-loader"
+			}
+		]
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
-			template: './src/index.html',
-		}),
-	],
-}
+			template: "./src/index.html"
+		})
+	]
+};
