@@ -6,10 +6,15 @@
 	"dependencies": {
 		"@types/react": "^17.0.1",
 		"@types/react-dom": "^17.0.0",
+		"@types/react-router-dom": "^5.1.7",
 		"react": "^17.0.1",
-		"react-dom": "^17.0.1"
+		"react-dom": "^17.0.1",
+		"react-hook-form": "^7.2.3",
+		"react-router-dom": "^5.2.0",
+		"styled-components": "^5.2.3"
 	},
 	"devDependencies": {
+		"@types/styled-components": "^5.1.9",
 		"@typescript-eslint/eslint-plugin": "^4.14.2",
 		"@typescript-eslint/parser": "^4.14.2",
 		"eslint": "^7.19.0",
