@@ -1,7 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { SignUpForm } from "./styled";
+import { SignUpForm, Label } from "./styled";
 import Button from "../../components/Button";
+import Input from "../../components/Input";
 
 const onSubmit = (data: any) => {
 	console.log(data);
@@ -12,12 +13,22 @@ const SignUp = () => {
 
 	return (
 		<SignUpForm onSubmit={handleSubmit(onSubmit)}>
-			<label htmlFor="">Электронная почта</label>
-			<input {...register("email")} />
-			<label htmlFor="">Имя пользователя</label>
-			<input {...register("username")} />
-			<label htmlFor="">Пароль</label>
-			<input type="password" {...register("passowrd")} />
+			<Label htmlFor="">Электронная почта</Label>
+			<Input
+				{...register("email")}
+				placeholder="Введите адрес электронной почты"
+			/>
+			<Label htmlFor="">Имя пользователя</Label>
+			<Input
+				{...register("username")}
+				placeholder="Введите имя пользователя"
+			/>
+			<Label htmlFor="">Пароль</Label>
+			<Input
+				type="password"
+				{...register("passowrd")}
+				placeholder="Введите пароль"
+			/>
 			<Button type="submit">Зарегистрироваться</Button>
 		</SignUpForm>
 	);
