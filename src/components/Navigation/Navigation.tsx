@@ -1,5 +1,5 @@
+import Logo from "@components/Logo";
 import React from "react";
-import Logo from "../Logo";
 import { NavContainer, NavGroup, NavItem } from "./styled";
 
 const Navigation = () => {

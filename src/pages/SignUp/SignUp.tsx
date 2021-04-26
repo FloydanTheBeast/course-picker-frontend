@@ -1,8 +1,8 @@
+import Button from "@components/Button";
+import Input from "@components/Input";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { SignUpForm, Label } from "./styled";
-import Button from "../../components/Button";
-import Input from "../../components/Input";
+import { Label, SignUpForm } from "./styled";
 
 const onSubmit = (data: any) => {
 	console.log(data);

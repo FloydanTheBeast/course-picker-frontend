@@ -1,9 +1,9 @@
+import Navigation from "@components/Navigation";
+import HomePage from "@pages/Home";
+import SignUpPage from "@pages/SignUp";
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
-import HomePage from "../../pages/Home";
-import SignUpPage from "../../pages/SignUp";
-import Navigation from "../Navigation";
 
 const GlobalStyle = createGlobalStyle`
 	body {

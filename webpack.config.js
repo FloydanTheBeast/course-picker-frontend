@@ -10,7 +10,12 @@ module.exports = {
 		filename: "bundle.js"
 	},
 	resolve: {
-		extensions: [".ts", ".tsx", ".js"]
+		extensions: [".ts", ".tsx", ".js"],
+		alias: {
+			"@components": path.resolve(__dirname, "src/components/"),
+			"@pages": path.resolve(__dirname, "src/pages/"),
+			"@api": path.resolve(__dirname, "src/api/")
+		}
 	},
 	devServer: {
 		contentBase: "./build",
