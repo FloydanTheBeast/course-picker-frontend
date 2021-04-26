@@ -1,8 +1,3 @@
-import React from "react";
-import { MenuContainer } from "./styled";
+import Navigation from "./Navigation";
 
-const ContextMenu = () => {
-	return <MenuContainer />;
-};
-
-export default ContextMenu;
+export default Navigation;

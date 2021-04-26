@@ -1,10 +1,17 @@
 import React, { Component } from "react";
-import SignUpPage from "../../pages/SignUp";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
+import HomePage from "../../pages/Home";
+import SignUpPage from "../../pages/SignUp";
+import Navigation from "../Navigation";
 
 const GlobalStyle = createGlobalStyle`
 	body {
 		font-family: 'Helvetica Neue', sans-serif;
+	}
+
+	a {
+		text-decoration: none;
 	}
 `;
 
@@ -12,7 +19,17 @@ class App extends Component {
 	render(): React.ReactNode {
 		return (
 			<>
-				<SignUpPage />
+				<BrowserRouter>
+					<Switch>
+						<Route path="/signup">
+							<SignUpPage />
+						</Route>
+						<Route path="/">
+							<Navigation />
+							<HomePage />
+						</Route>
+					</Switch>
+				</BrowserRouter>
 				<GlobalStyle />
 			</>
 		);

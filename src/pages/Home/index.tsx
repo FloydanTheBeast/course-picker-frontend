@@ -1,5 +1,3 @@
-import React from "react";
-
-const HomePage = () => {};
+import HomePage from "./Home";
 
 export default HomePage;
