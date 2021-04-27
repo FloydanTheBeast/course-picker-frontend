@@ -1,3 +1,3 @@
-import Input from "./styled";
+import Input from "./Input";
 
 export default Input;
