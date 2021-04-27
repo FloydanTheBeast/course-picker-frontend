@@ -1,41 +1,48 @@
 import Button from "components/Button";
 import Input from "components/Input";
 import { useAuth } from "providers/authProvider";
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { Redirect } from "react-router-dom";
-import { SignUpData } from "services/auth";
-import { Label, SignUpForm } from "./styled";
+import { SignInData } from "services/auth";
+import { Label, SignInForm } from "./styled";
 
-const SignUp = () => {
+const SignIn = () => {
 	const { register, handleSubmit } = useForm();
-	const [hasSignedUp, setHasSignedUp] = useState(false);
-	const { isAuthenticated, signup } = useAuth();
+	const { isAuthenticated, setIsAuthenticated, signin } = useAuth();
 
-	const onSubmit = (data: SignUpData) => {
-		signup(data)
+	const onSubmit = (data: SignInData & { emailOrUsername: string }) => {
+		let signInData: SignInData;
+
+		if (/\S+@\S+\.\S+/.test(data.emailOrUsername)) {
+			signInData = {
+				email: data.emailOrUsername,
+				password: data.password
+			};
+		} else {
+			signInData = {
+				username: data.emailOrUsername,
+				password: data.password
+			};
+		}
+
+		signin(signInData)
 			.then((res) => {
-				setHasSignedUp(true);
+				setIsAuthenticated(true);
 			})
 			// TODO: Обрабатывать ошибку соответствующе, показывать
 			.catch((error) => console.log(error.response));
 	};
 
-	// TODO: Сообщение об успехе регистрации
-	return isAuthenticated || hasSignedUp ? (
+	return isAuthenticated ? (
 		<Redirect to="/" />
 	) : (
 		// TODO: Добавить валидацию
-		<SignUpForm onSubmit={handleSubmit(onSubmit)}>
-			<Label htmlFor="">Электронная почта</Label>
+		<SignInForm onSubmit={handleSubmit(onSubmit)}>
+			<Label htmlFor="">Электронная почта/имя пользователя</Label>
 			<Input
-				{...register("email")}
+				{...register("emailOrUsername")}
 				placeholder="Введите адрес электронной почты"
-			/>
-			<Label htmlFor="">Имя пользователя</Label>
-			<Input
-				{...register("username")}
-				placeholder="Введите имя пользователя"
 			/>
 			<Label htmlFor="">Пароль</Label>
 			<Input
@@ -44,8 +51,8 @@ const SignUp = () => {
 				placeholder="Введите пароль"
 			/>
 			<Button type="submit">Зарегистрироваться</Button>
-		</SignUpForm>
+		</SignInForm>
 	);
 };
 
-export default SignUp;
+export default SignIn;

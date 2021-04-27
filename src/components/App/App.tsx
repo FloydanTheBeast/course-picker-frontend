@@ -1,5 +1,6 @@
 import Navigation from "components/Navigation";
 import HomePage from "pages/Home";
+import SignInPage from "pages/SignIn";
 import SignUpPage from "pages/SignUp";
 import { AuthContextProvider } from "providers/authProvider";
 import React, { Component } from "react";
@@ -24,6 +25,9 @@ class App extends Component {
 					<Switch>
 						<Route path="/signup">
 							<SignUpPage />
+						</Route>
+						<Route path="/signin">
+							<SignInPage />
 						</Route>
 						<Route path="/">
 							<Navigation />

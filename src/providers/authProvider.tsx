@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import React, { createContext, useContext, useState } from "react";
-import { AuthService, SignUpData } from "services/auth";
+import { AuthService, SignInData, SignUpData } from "services/auth";
 
 interface AuthProps {
 	children: React.ReactNode;
@@ -10,6 +10,7 @@ interface AuthContext {
 	isAuthenticated: boolean;
 	setIsAuthenticated: (value: boolean) => void;
 	signup: (data: SignUpData) => Promise<AxiosResponse<any>>;
+	signin: (data: SignInData) => Promise<AxiosResponse<any>>;
 }
 
 const AuthContext = createContext({} as AuthContext);
@@ -23,7 +24,8 @@ const AuthContextProvider: React.FC<AuthProps> = ({ children }: AuthProps) => {
 			value={{
 				isAuthenticated,
 				setIsAuthenticated,
-				signup: AuthService.signup.bind(AuthService)
+				signup: AuthService.signup.bind(AuthService),
+				signin: AuthService.signin.bind(AuthService)
 			}}
 		>
 			{children}
