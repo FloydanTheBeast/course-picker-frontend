@@ -1,6 +1,7 @@
-import Navigation from "@components/Navigation";
-import HomePage from "@pages/Home";
-import SignUpPage from "@pages/SignUp";
+import Navigation from "components/Navigation";
+import HomePage from "pages/Home";
+import SignUpPage from "pages/SignUp";
+import { AuthContextProvider } from "providers/authProvider";
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
@@ -18,7 +19,7 @@ const GlobalStyle = createGlobalStyle`
 class App extends Component {
 	render(): React.ReactNode {
 		return (
-			<>
+			<AuthContextProvider>
 				<BrowserRouter>
 					<Switch>
 						<Route path="/signup">
@@ -31,7 +32,7 @@ class App extends Component {
 					</Switch>
 				</BrowserRouter>
 				<GlobalStyle />
-			</>
+			</AuthContextProvider>
 		);
 	}
 }

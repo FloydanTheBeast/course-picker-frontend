@@ -1,4 +1,4 @@
-import Logo from "@components/Logo";
+import Logo from "components/Logo";
 import React from "react";
 import { NavContainer, NavGroup, NavItem } from "./styled";
 

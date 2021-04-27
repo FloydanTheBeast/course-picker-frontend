@@ -1,12 +1,9 @@
-import React, { DetailedHTMLProps, InputHTMLAttributes } from "react";
+import styled from "styled-components";
 
-type InputProps = DetailedHTMLProps<
-	InputHTMLAttributes<HTMLInputElement>,
-	HTMLInputElement
->;
+const StyledInput = styled.input`
+	padding: 8px 12px;
+	border-radius: 12px;
+	border: 1px solid #aaa;
+`;
 
-const Input: React.FC<InputProps> = (props: InputProps) => {
-	return <input {...props} />;
-};
-
-export default Input;
+export default StyledInput;
