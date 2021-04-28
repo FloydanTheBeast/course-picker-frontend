@@ -20,7 +20,7 @@ export type SignInData = SignInEmailData & SignInUsernameData;
 
 export class AuthService {
 	private static api = axios.create({
-		baseURL: "http://localhost:8000/auth"
+		baseURL: "https://mooc.ij.je/auth"
 	});
 
 	static signup(data: SignUpData) {

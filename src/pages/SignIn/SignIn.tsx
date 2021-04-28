@@ -9,7 +9,11 @@ import { Label, SignInForm } from "./styled";
 
 const SignIn = () => {
 	const { register, handleSubmit } = useForm();
-	const { isAuthenticated, setIsAuthenticated, signin } = useAuth();
+	const {
+		authState: { isAuthenticated },
+		dispatchAuthState,
+		signin
+	} = useAuth();
 
 	const onSubmit = (data: SignInData & { emailOrUsername: string }) => {
 		let signInData: SignInData;
@@ -28,7 +32,11 @@ const SignIn = () => {
 
 		signin(signInData)
 			.then((res) => {
-				setIsAuthenticated(true);
+				dispatchAuthState({
+					type: "signin",
+					payload: res.data
+				});
+				// setIsAuthenticated(true);
 			})
 			// TODO: Обрабатывать ошибку соответствующе, показывать
 			.catch((error) => console.log(error.response));
@@ -50,7 +58,7 @@ const SignIn = () => {
 				{...register("password")}
 				placeholder="Введите пароль"
 			/>
-			<Button type="submit">Зарегистрироваться</Button>
+			<Button type="submit">Войти</Button>
 		</SignInForm>
 	);
 };

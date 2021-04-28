@@ -10,7 +10,10 @@ import { Label, SignUpForm } from "./styled";
 const SignUp = () => {
 	const { register, handleSubmit } = useForm();
 	const [hasSignedUp, setHasSignedUp] = useState(false);
-	const { isAuthenticated, signup } = useAuth();
+	const {
+		authState: { isAuthenticated },
+		signup
+	} = useAuth();
 
 	const onSubmit = (data: SignUpData) => {
 		signup(data)
