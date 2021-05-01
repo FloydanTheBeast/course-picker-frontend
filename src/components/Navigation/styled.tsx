@@ -23,6 +23,8 @@ export const NavContainer = styled.nav`
 
 export const NavGroup = styled.div`
 	height: 100%;
+	display: flex;
+	align-items: center;
 `;
 
 export const NavItem = styled(Link)`

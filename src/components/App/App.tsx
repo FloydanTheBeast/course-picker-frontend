@@ -1,5 +1,6 @@
 import Navigation from "components/Navigation";
 import HomePage from "pages/Home";
+import NotFoundPage from "pages/NotFound";
 import SignInPage from "pages/SignIn";
 import SignUpPage from "pages/SignUp";
 import { AuthContextProvider } from "providers/authProvider";
@@ -22,16 +23,19 @@ class App extends Component {
 		return (
 			<AuthContextProvider>
 				<BrowserRouter>
+					<Navigation />
 					<Switch>
+						<Route exact path="/">
+							<HomePage />
+						</Route>
 						<Route path="/signup">
 							<SignUpPage />
 						</Route>
 						<Route path="/signin">
 							<SignInPage />
 						</Route>
-						<Route path="/">
-							<Navigation />
-							<HomePage />
+						<Route path="*">
+							<NotFoundPage />
 						</Route>
 					</Switch>
 				</BrowserRouter>
