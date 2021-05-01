@@ -16,6 +16,10 @@ export interface SignInUsernameData {
 	password: string;
 }
 
+export interface LogoutData {
+	refreshToken: string;
+}
+
 export type SignInData = SignInEmailData & SignInUsernameData;
 
 export class AuthService {
@@ -29,5 +33,13 @@ export class AuthService {
 
 	static signin(data: SignInData) {
 		return this.api.post("/signin", data);
+	}
+
+	static logout(data: LogoutData) {
+		return this.api.post("/logout", null, {
+			headers: {
+				"x-refresh-token": data.refreshToken
+			}
+		});
 	}
 }

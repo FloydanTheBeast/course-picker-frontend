@@ -16,7 +16,8 @@ module.exports = {
 			pages: path.resolve(__dirname, "src/pages/"),
 			api: path.resolve(__dirname, "src/api/"),
 			providers: path.resolve(__dirname, "src/providers/"),
-			services: path.resolve(__dirname, "src/services/")
+			services: path.resolve(__dirname, "src/services/"),
+			icons: path.resolve(__dirname, "assets/icons/")
 		}
 	},
 	devServer: {
@@ -43,6 +44,10 @@ module.exports = {
 			{
 				test: /\.css$/i,
 				use: ["style-loader", "css-loader"]
+			},
+			{
+				test: /\.svg$/,
+				use: ["@svgr/webpack"]
 			}
 		]
 	},

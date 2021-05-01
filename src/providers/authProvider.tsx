@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import React, { createContext, useContext, useReducer } from "react";
-import { AuthService, SignInData, SignUpData } from "services/auth";
+import { AuthService, LogoutData, SignInData, SignUpData } from "services/auth";
 
 const ACCESS_TOKEN_KEY = "accessToken";
 const REFRESH_TOKEN_KEY = "refreshToken";
@@ -48,6 +48,8 @@ const authReducer = (authState: AuthState, action: AuthAction): AuthState => {
 
 			return newAuthState;
 		case "logout":
+			localStorage.removeItem(ACCESS_TOKEN_KEY);
+			localStorage.removeItem(REFRESH_TOKEN_KEY);
 			return { isAuthenticated: false };
 	}
 };
@@ -57,6 +59,7 @@ interface AuthContext {
 	dispatchAuthState: React.Dispatch<AuthAction>;
 	signup: (data: SignUpData) => Promise<AxiosResponse<any>>;
 	signin: (data: SignInData) => Promise<AxiosResponse<any>>;
+	logout: () => Promise<AxiosResponse<any>>;
 }
 
 const AuthContext = createContext({} as AuthContext);
@@ -86,7 +89,20 @@ const AuthContextProvider: React.FC<AuthProps> = ({ children }: AuthProps) => {
 				authState,
 				dispatchAuthState,
 				signup: AuthService.signup.bind(AuthService),
-				signin: AuthService.signin.bind(AuthService)
+				signin: AuthService.signin.bind(AuthService),
+				logout: () => {
+					const refreshToken = localStorage.getItem(
+						REFRESH_TOKEN_KEY
+					);
+
+					dispatchAuthState({
+						type: "logout"
+					});
+
+					return AuthService.logout({
+						refreshToken
+					});
+				}
 			}}
 		>
 			{children}

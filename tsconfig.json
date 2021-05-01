@@ -14,7 +14,8 @@
 		"pages": ["./pages/"],
 		"api": ["./api/"],
 		"providers": ["./providers/"],
-		"services": ["./services/"]
+		"services": ["./services/"],
+		"icons": ["../assets/icons/"]
 	},
 	"exclude": ["node_modules"]
 }

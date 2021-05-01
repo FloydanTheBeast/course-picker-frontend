@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledLogo = styled(Link)`
-	color: #ccc;
+	color: #888;
 	font-size: 36px;
 	font-weight: bold;
 	transition: color 0.2s;

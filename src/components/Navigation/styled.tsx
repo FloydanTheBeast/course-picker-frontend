@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import ProfileIcon from "icons/user.svg";
 
 export const NavContainer = styled.nav`
 	width: 100%;
@@ -20,7 +21,9 @@ export const NavContainer = styled.nav`
 	}
 `;
 
-export const NavGroup = styled.div``;
+export const NavGroup = styled.div`
+	height: 100%;
+`;
 
 export const NavItem = styled(Link)`
 	display: inline-block;
@@ -30,5 +33,38 @@ export const NavItem = styled(Link)`
 
 	&:hover {
 		color: #fff;
+	}
+`;
+
+export const MenuIcon = styled(ProfileIcon)`
+	fill: #888;
+	width: 30px;
+	height: 30px;
+	transition: fill 0.2s;
+
+	&:hover {
+		fill: #fff;
+		cursor: pointer;
+	}
+`;
+
+export const StyledTooltipMenuContent = styled.div`
+	a {
+		display: block;
+		box-sizing: border-box;
+		width: 100%;
+		padding: 8px;
+	}
+	.tootlip-menu {
+		&_logout {
+			color: #e74c3c;
+			transition: all 0.2s;
+
+			&:hover {
+				color: #fff;
+				background-color: #e74c3c;
+				cursor: pointer;
+			}
+		}
 	}
 `;
