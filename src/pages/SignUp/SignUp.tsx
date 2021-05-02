@@ -4,7 +4,7 @@ import { useAuth } from "providers/authProvider";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Redirect } from "react-router-dom";
-import { SignUpData } from "services/auth";
+import { SignUpData } from "services/authService";
 import { Label, SignUpForm } from "./styled";
 
 const SignUp = () => {

@@ -4,7 +4,7 @@ import { useAuth } from "providers/authProvider";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Redirect } from "react-router-dom";
-import { SignInData } from "services/auth";
+import { SignInData } from "services/authService";
 import { Label, SignInForm } from "./styled";
 
 const SignIn = () => {
