@@ -1,3 +1,4 @@
+import Footer from "components/Footer";
 import Navigation from "components/Navigation";
 import HomePage from "pages/Home";
 import NotFoundPage from "pages/NotFound";
@@ -10,8 +11,17 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
+	html, body {
+		height: 100%;
+	}
 	body {
 		font-family: 'Helvetica Neue', sans-serif;
+	}
+
+	#root {
+		display: flex;
+		flex-flow: column nowrap;
+		min-height: 100%;
 	}
 
 	a {
@@ -19,6 +29,7 @@ const GlobalStyle = createGlobalStyle`
 	}
 
 	.content-container {
+		flex: 1 0 auto;
 		width: 60%;
 		margin: 0 auto;
 	}
@@ -49,6 +60,7 @@ class App extends Component {
 						</Switch>
 					</div>
 				</BrowserRouter>
+				<Footer />
 				<GlobalStyle />
 			</AuthContextProvider>
 		);
