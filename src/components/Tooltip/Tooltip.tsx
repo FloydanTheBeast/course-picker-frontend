@@ -1,4 +1,4 @@
-import React, { useState, PropsWithChildren, useEffect } from "react";
+import React, { PropsWithChildren } from "react";
 import styled from "styled-components";
 
 interface TooltipCustomProps {
@@ -65,67 +65,86 @@ const withTooltip = (
 	content: React.ReactNode | React.ReactNode[],
 	customProps?: TooltipCustomProps
 ) => {
-	const [isShown, setIsShown] = useState(false);
-	const rootRef = React.useRef(null);
-	const tooltipRef = React.useRef(null);
+	return class Tooltiped extends React.Component<any, { isShown: boolean }> {
+		rootRef: React.RefObject<any>;
+		tooltipRef: React.RefObject<any>;
 
-	const handleOutsideClick = (event: MouseEvent) => {
-		if (!rootRef.current) {
-			window.removeEventListener("click", handleOutsideClick);
-			return;
+		constructor(props: any) {
+			super(props);
+
+			this.state = {
+				isShown: false
+			};
+
+			this.rootRef = React.createRef();
+			this.tooltipRef = React.createRef();
+
+			this.handleOutsideClick = this.handleOutsideClick.bind(this);
+			this.handleKeyDown = this.handleKeyDown.bind(this);
+
+			window.addEventListener("click", this.handleOutsideClick);
+			window.addEventListener("keydown", this.handleKeyDown);
 		}
 
-		if (
-			!rootRef.current.contains(event.target) &&
-			tooltipRef.current &&
-			!tooltipRef.current.contains(event.target)
-		) {
-			setIsShown(false);
+		componentWillUnmount() {
+			window.removeEventListener("click", this.handleOutsideClick);
+			window.removeEventListener("keydown", this.handleKeyDown);
+		}
+
+		handleOutsideClick(event: MouseEvent) {
+			if (!this.rootRef.current) {
+				window.removeEventListener("click", this.handleOutsideClick);
+				return;
+			}
+
+			if (
+				!this.rootRef.current.contains(event.target) &&
+				this.tooltipRef.current &&
+				!this.tooltipRef.current.contains(event.target)
+			) {
+				this.setState({ isShown: false });
+			}
+		}
+
+		handleKeyDown(event: KeyboardEvent) {
+			if (!this.rootRef.current) {
+				window.removeEventListener("keydown", this.handleKeyDown);
+				return;
+			}
+
+			if (event.key === "Escape") {
+				this.setState({ isShown: false });
+			}
+		}
+
+		render() {
+			return (
+				<>
+					<TooltipContainer
+						className="tooltip_button-container"
+						ref={this.rootRef}
+						onClick={() =>
+							!this.state.isShown &&
+							this.setState({ isShown: true })
+						}
+					>
+						{element}
+					</TooltipContainer>
+					{this.state.isShown ? (
+						<Tooltip
+							customProps={customProps}
+							ref={this.tooltipRef}
+							rootRef={this.rootRef}
+						>
+							{content}
+						</Tooltip>
+					) : (
+						""
+					)}
+				</>
+			);
 		}
 	};
-
-	const handleKeyDown = (event: KeyboardEvent) => {
-		if (!rootRef.current) {
-			window.removeEventListener("keydown", handleKeyDown);
-			return;
-		}
-
-		if (event.key === "Escape") {
-			setIsShown(false);
-		}
-	};
-
-	useEffect(() => {
-		window.addEventListener("click", handleOutsideClick);
-		window.addEventListener("keydown", handleKeyDown);
-		return () => {
-			window.removeEventListener("click", handleOutsideClick);
-			window.removeEventListener("keydown", handleKeyDown);
-		};
-	}, []);
-
-	return (
-		<>
-			<TooltipContainer
-				className="tooltip_button-container"
-				ref={rootRef}
-				onClick={() => !isShown && setIsShown(true)}
-			>
-				{element}
-			</TooltipContainer>
-			{isShown ? (
-				<Tooltip
-					customProps={customProps}
-					ref={tooltipRef}
-					rootRef={rootRef}
-				>
-					{content}
-				</Tooltip>
-			) : (
-				""
-			)}
-		</>
-	);
 };
 
 export default withTooltip;

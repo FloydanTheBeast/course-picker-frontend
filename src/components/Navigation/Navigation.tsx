@@ -1,14 +1,14 @@
 import Logo from "components/Logo";
+import withTooltip from "components/Tooltip";
+import { useAuth } from "providers/authProvider";
 import React from "react";
 import {
+	MenuIcon,
 	NavContainer,
 	NavGroup,
 	NavItem,
-	MenuIcon,
 	StyledTooltipMenuContent
 } from "./styled";
-import { useAuth } from "providers/authProvider";
-import withTooltip from "components/Tooltip";
 
 const TooltipMenuContent = () => {
 	const { logout } = useAuth();
@@ -34,14 +34,15 @@ const Navigation = () => {
 		authState: { isAuthenticated }
 	} = useAuth();
 
+	const ProfileTooltip = withTooltip(<MenuIcon />, <TooltipMenuContent />, {
+		offsetTop: 10
+	});
 	return (
 		<NavContainer>
 			<Logo />
 			<NavGroup>
 				{isAuthenticated ? (
-					withTooltip(<MenuIcon />, <TooltipMenuContent />, {
-						offsetTop: 10
-					})
+					<ProfileTooltip />
 				) : (
 					<>
 						<NavItem to="/signup">Регистрация</NavItem>
