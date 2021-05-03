@@ -45,8 +45,6 @@ const PageControls: React.FC<PageControlsProps> = ({
 	onPageChange,
 	pagesToShow = 2
 }: PageControlsProps) => {
-	console.log(currentPage, countPages);
-
 	return (
 		<StyledPageControls>
 			{currentPage - pagesToShow >= pagesToShow && (

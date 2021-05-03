@@ -1,6 +1,6 @@
 import React from "react";
-import styled from "styled-components";
 import StarRating from "react-star-ratings";
+import styled from "styled-components";
 
 interface CourseCardProps {
 	courseName: string;
@@ -28,6 +28,12 @@ interface CourseCardProps {
 		icon: string;
 		link: string;
 		name: string;
+	};
+	vendor: {
+		id: string;
+		name: string;
+		link: string;
+		icon: string;
 	};
 	categories: {
 		id: number;
@@ -60,12 +66,27 @@ const StyledCourseCardHeader = styled.div<{ previewImageLink: string }>`
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 150px;
+	height: 160px;
 
-	& .header-darken {
-		width: 100%;
-		height: 100%;
-		background: rgba(0, 0, 0, 0.8);
+	& .header {
+		&_vendor {
+			position: relative;
+			top: 10px;
+			left: 10px;
+			display: flex;
+			align-items: center;
+
+			& p {
+				color: #fff;
+				margin: 0 0 0 4px;
+			}
+		}
+
+		&_darken {
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.8);
+		}
 	}
 
 	& h2 {
@@ -74,7 +95,12 @@ const StyledCourseCardHeader = styled.div<{ previewImageLink: string }>`
 		position: absolute;
 		bottom: 15px;
 		left: 15px;
+		right: 15px;
 		margin: 0;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 3;
+		overflow: hidden;
+		display: -webkit-box;
 	}
 `;
 
@@ -110,7 +136,15 @@ const CourseCard: React.FC<CourseCardProps> = (props: CourseCardProps) => {
 	return (
 		<StyledCourseCard>
 			<StyledCourseCardHeader previewImageLink={props.previewImageLink}>
-				<div className="header-darken"></div>
+				<div className="header_darken">
+					<div className="header_vendor">
+						<img
+							src={props.vendor.icon}
+							alt={`Логотип ${props.vendor.name}`}
+						/>
+						<p>{props.vendor.name}</p>
+					</div>
+				</div>
 				<h2>{props.courseName}</h2>
 			</StyledCourseCardHeader>
 			<StyledCouseCardBody>
@@ -121,9 +155,15 @@ const CourseCard: React.FC<CourseCardProps> = (props: CourseCardProps) => {
 						starSpacing="2px"
 					/>
 					<h3 className="price">
-						{props.price.amount}
-						{currencyMapping[props.price.currency] ||
-							props.price.currency}
+						{props.price.amount === 0 ? (
+							"Бесплатно"
+						) : (
+							<>
+								{props.price.amount}
+								{currencyMapping[props.price.currency] ||
+									props.price.currency}
+							</>
+						)}
 					</h3>
 				</div>
 				<p>{props.shortDescription}</p>

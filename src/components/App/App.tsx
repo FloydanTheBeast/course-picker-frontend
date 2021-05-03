@@ -27,6 +27,7 @@ const GlobalStyle = createGlobalStyle`
 
 	a {
 		text-decoration: none;
+		color: #3498DB;
 	}
 
 	.content-container {

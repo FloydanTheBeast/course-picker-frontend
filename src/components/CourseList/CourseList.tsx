@@ -1,11 +1,7 @@
+import { CoursesContext } from "providers/coursesProvider";
 import React from "react";
-import {
-	CoursesContextProvider,
-	useCourses,
-	CoursesContext
-} from "providers/coursesProvider";
-import CourseCard from "./CourseCard";
 import styled from "styled-components";
+import CourseCard from "./CourseCard";
 import PageControls from "./PageControls";
 
 interface CourseListState {
@@ -17,9 +13,17 @@ interface CourseListState {
 
 const StyledCourseList = styled.div`
 	display: grid;
-	grid-template-columns: 1fr 1fr;
-	grid-auto-rows: 400px;
+	grid-template-columns: repeat(2, 1fr);
+	grid-auto-rows: 320px;
 	grid-gap: 25px;
+
+	@media (min-width: 1280px) {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	@media (min-width: 1920px) {
+		grid-template-columns: repeat(4, 1fr);
+	}
 `;
 
 class CourseList extends React.Component<any, CourseListState> {

@@ -81,14 +81,17 @@ const withTooltip = (
 
 			this.handleOutsideClick = this.handleOutsideClick.bind(this);
 			this.handleKeyDown = this.handleKeyDown.bind(this);
+			this.handleScroll = this.handleScroll.bind(this);
 
 			window.addEventListener("click", this.handleOutsideClick);
 			window.addEventListener("keydown", this.handleKeyDown);
+			window.addEventListener("scroll", this.handleScroll);
 		}
 
 		componentWillUnmount() {
 			window.removeEventListener("click", this.handleOutsideClick);
 			window.removeEventListener("keydown", this.handleKeyDown);
+			window.removeEventListener("scroll", this.handleScroll);
 		}
 
 		handleOutsideClick(event: MouseEvent) {
@@ -115,6 +118,15 @@ const withTooltip = (
 			if (event.key === "Escape") {
 				this.setState({ isShown: false });
 			}
+		}
+
+		handleScroll() {
+			if (!this.rootRef.current) {
+				window.removeEventListener("keydown", this.handleScroll);
+				return;
+			}
+
+			this.setState({ isShown: false });
 		}
 
 		render() {

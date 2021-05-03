@@ -1,8 +1,7 @@
-import { AxiosResponse } from "axios";
 import React, { createContext, useContext, useReducer } from "react";
 import { CourseService } from "services/coursesService";
 
-const PAGE_SIZE = 30;
+const PAGE_SIZE = 24;
 
 interface ProviderProps {
 	children: React.ReactNode;
