@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import StarRating from "react-star-ratings";
 
 interface CourseCardProps {
 	courseName: string;
@@ -38,30 +39,95 @@ interface CourseCardProps {
 }
 
 const StyledCourseCard = styled.div`
-	height: 300px;
-	width: 45%;
-	margin: 10px 0;
-	padding: 10px;
+	height: 100%;
+	box-sizing: border-box;
 	border: 0.5px solid #aaa;
 	border-radius: 8px;
 	overflow: hidden;
+	box-shadow: 2px 2px 6px 1px rgba(0, 0, 0, 0.25);
 
 	&:hover {
 		cursor: pointer;
 	}
 `;
 
-const StyledCourseCardHeader = styled.div``;
+const StyledCourseCardHeader = styled.div<{ previewImageLink: string }>`
+	background-image: url(${(props) => props.previewImageLink});
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 150px;
 
-const StyledCouseCardBody = styled.div``;
+	& .header-darken {
+		width: 100%;
+		height: 100%;
+		background: rgba(0, 0, 0, 0.8);
+	}
+
+	& h2 {
+		color: #fff;
+		font-size: 24px;
+		position: absolute;
+		bottom: 15px;
+		left: 15px;
+		margin: 0;
+	}
+`;
+
+const StyledCouseCardBody = styled.div`
+	padding: 15px;
+
+	.row {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: space-between;
+	}
+
+	.price {
+		margin: 0;
+	}
+
+	& p {
+		color: #666;
+		line-height: 18px;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 5;
+		overflow: hidden;
+		display: -webkit-box;
+	}
+`;
+
+const currencyMapping: { [key: string]: string } = {
+	RUB: "₽",
+	USD: "$"
+};
 
 const CourseCard: React.FC<CourseCardProps> = (props: CourseCardProps) => {
 	return (
 		<StyledCourseCard>
-			<StyledCourseCardHeader>
+			<StyledCourseCardHeader previewImageLink={props.previewImageLink}>
+				<div className="header-darken"></div>
 				<h2>{props.courseName}</h2>
 			</StyledCourseCardHeader>
-			<StyledCouseCardBody>{props.shortDescription}</StyledCouseCardBody>
+			<StyledCouseCardBody>
+				<div className="row">
+					<StarRating
+						rating={props.rating.external.averageScore}
+						starDimension="20px"
+						starSpacing="2px"
+					/>
+					<h3 className="price">
+						{props.price.amount}
+						{currencyMapping[props.price.currency] ||
+							props.price.currency}
+					</h3>
+				</div>
+				<p>{props.shortDescription}</p>
+			</StyledCouseCardBody>
 		</StyledCourseCard>
 	);
 };

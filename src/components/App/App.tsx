@@ -14,8 +14,9 @@ const GlobalStyle = createGlobalStyle`
 	html, body {
 		height: 100%;
 	}
+	
 	body {
-		font-family: 'Helvetica Neue', sans-serif;
+		font-family: "PT Sans", 'Helvetica Neue', sans-serif;
 	}
 
 	#root {
@@ -30,8 +31,9 @@ const GlobalStyle = createGlobalStyle`
 
 	.content-container {
 		flex: 1 0 auto;
-		width: 60%;
+		width: 70%;
 		margin: 0 auto;
+		padding: 2rem 0;
 	}
 `;
 

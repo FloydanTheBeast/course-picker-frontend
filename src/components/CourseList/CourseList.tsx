@@ -14,9 +14,10 @@ interface CourseListState {
 }
 
 const StyledCourseList = styled.div`
-	display: flex;
-	flex-flow: row wrap;
-	justify-content: space-around;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-auto-rows: 400px;
+	grid-gap: 25px;
 `;
 
 class CourseList extends React.Component<any, CourseListState> {
