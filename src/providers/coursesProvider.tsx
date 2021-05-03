@@ -20,6 +20,7 @@ enum ActionTypes {
 }
 
 interface ActionPayload {
+	countPages: number;
 	pageNumber: number;
 	// FIXME: Задать интерфейс курса
 	courses: unknown[];
@@ -32,7 +33,7 @@ interface Action {
 
 const coursesReducer = (
 	coursesState: State,
-	{ type, payload: { pageNumber, courses } }: Action
+	{ type, payload: { pageNumber, countPages, courses } }: Action
 ): State => {
 	switch (type) {
 		case "addCourses": {
@@ -40,15 +41,21 @@ const coursesReducer = (
 				[pageNumber]: courses
 			});
 
-			return Object.assign(coursesState, {
-				courses: newCourses
-			});
+			return Object.assign(
+				coursesState,
+				{ countPages },
+				{
+					courses: newCourses
+				}
+			);
 		}
 	}
 };
 
 interface CoursesContext {
-	getCourses: (pageNumber: number) => Promise<unknown[]>;
+	getCourses: (
+		pageNumber: number
+	) => Promise<{ countPages: number; courses: unknown[] }>;
 }
 
 const CoursesContext = createContext({} as CoursesContext);
@@ -66,7 +73,10 @@ const CoursesContextProvider: React.FC<ProviderProps> = ({
 			value={{
 				getCourses: async (pageNumber: number) => {
 					if (pageNumber in coursesState.courses) {
-						return coursesState.courses[pageNumber];
+						return {
+							countPages: coursesState.countPages,
+							courses: coursesState.courses[pageNumber]
+						};
 					}
 
 					const {
@@ -77,11 +87,15 @@ const CoursesContextProvider: React.FC<ProviderProps> = ({
 						type: "addCourses",
 						payload: {
 							pageNumber,
+							countPages: fetchedCourses.countPages,
 							courses: fetchedCourses.courses
 						}
 					});
 
-					return coursesState.courses[pageNumber];
+					return {
+						countPages: coursesState.countPages,
+						courses: coursesState.courses[pageNumber]
+					};
 				}
 			}}
 		>
