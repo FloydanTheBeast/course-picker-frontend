@@ -45,8 +45,12 @@ const Navigation = () => {
 					<ProfileTooltip />
 				) : (
 					<>
-						<NavItem to="/signup">Регистрация</NavItem>
-						<NavItem to="/signin">Вход</NavItem>{" "}
+						<NavItem activeClassName="active" to="/signup">
+							Регистрация
+						</NavItem>
+						<NavItem activeClassName="active" to="/signin">
+							Вход
+						</NavItem>
 					</>
 				)}
 			</NavGroup>

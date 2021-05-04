@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
 import ProfileIcon from "icons/user.svg";
+import { NavLink } from "react-router-dom";
+import styled from "styled-components";
 
 export const NavContainer = styled.nav`
 	width: 100%;
@@ -27,7 +27,7 @@ export const NavGroup = styled.div`
 	align-items: center;
 `;
 
-export const NavItem = styled(Link)`
+export const NavItem = styled(NavLink)`
 	display: inline-block;
 	transition: color 0.2s;
 	color: #ccc;
@@ -35,6 +35,11 @@ export const NavItem = styled(Link)`
 
 	&:hover {
 		color: #fff;
+	}
+
+	&.active {
+		color: #fff;
+		cursor: default;
 	}
 `;
 
