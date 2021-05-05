@@ -1,5 +1,7 @@
 import Footer from "components/Footer";
 import Navigation from "components/Navigation";
+import PrivateRoute from "components/PrivateRoute";
+import CoursePage from "pages/Course";
 import HomePage from "pages/Home";
 import NotFoundPage from "pages/NotFound";
 import SignInPage from "pages/SignIn";
@@ -57,6 +59,16 @@ class App extends Component {
 							<Route path="/signin">
 								<SignInPage />
 							</Route>
+							<PrivateRoute
+								path="/courses/:courseId"
+								render={({ match }) => {
+									return (
+										<CoursePage
+											courseId={match.params.courseId}
+										/>
+									);
+								}}
+							/>
 							<Route path="*">
 								<NotFoundPage />
 							</Route>

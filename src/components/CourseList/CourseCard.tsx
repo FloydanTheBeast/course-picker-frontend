@@ -1,48 +1,9 @@
 import React from "react";
+import { generatePath, Link } from "react-router-dom";
 import StarRating from "react-star-ratings";
 import styled from "styled-components";
 
-interface CourseCardProps {
-	courseName: string;
-	shortDescription: string;
-	duration: string;
-	id: string;
-	link: string;
-	previewImageLink: string;
-	price: {
-		amount: number;
-		currency: string;
-	};
-	rating: {
-		external: {
-			averageScore: number;
-			countReviews: number;
-		};
-		internal: {
-			averageScore: number;
-			countReviews: number;
-		};
-	};
-	courseLanguages: string[];
-	author: {
-		icon: string;
-		link: string;
-		name: string;
-	};
-	vendor: {
-		id: string;
-		name: string;
-		link: string;
-		icon: string;
-	};
-	categories: {
-		id: number;
-		name: {
-			[key: string]: string;
-		};
-	}[];
-	countViews: number;
-}
+type CourseCardProps = CoursePreview;
 
 const StyledCourseCard = styled.div`
 	height: 100%;
@@ -115,6 +76,7 @@ const StyledCouseCardBody = styled.div`
 
 	.price {
 		margin: 0;
+		color: #666;
 	}
 
 	& p {
@@ -134,41 +96,45 @@ const currencyMapping: { [key: string]: string } = {
 
 const CourseCard: React.FC<CourseCardProps> = (props: CourseCardProps) => {
 	return (
-		<StyledCourseCard>
-			<StyledCourseCardHeader previewImageLink={props.previewImageLink}>
-				<div className="header_darken">
-					<div className="header_vendor">
-						<img
-							src={props.vendor.icon}
-							alt={`Логотип ${props.vendor.name}`}
-						/>
-						<p>{props.vendor.name}</p>
+		<Link to={generatePath("/courses/:courseId", { courseId: props.id })}>
+			<StyledCourseCard>
+				<StyledCourseCardHeader
+					previewImageLink={props.previewImageLink}
+				>
+					<div className="header_darken">
+						<div className="header_vendor">
+							<img
+								src={props.vendor.icon}
+								alt={`Логотип ${props.vendor.name}`}
+							/>
+							<p>{props.vendor.name}</p>
+						</div>
 					</div>
-				</div>
-				<h2>{props.courseName}</h2>
-			</StyledCourseCardHeader>
-			<StyledCouseCardBody>
-				<div className="row">
-					<StarRating
-						rating={props.rating.external.averageScore}
-						starDimension="20px"
-						starSpacing="2px"
-					/>
-					<h3 className="price">
-						{props.price.amount === 0 ? (
-							"Бесплатно"
-						) : (
-							<>
-								{props.price.amount}
-								{currencyMapping[props.price.currency] ||
-									props.price.currency}
-							</>
-						)}
-					</h3>
-				</div>
-				<p>{props.shortDescription}</p>
-			</StyledCouseCardBody>
-		</StyledCourseCard>
+					<h2>{props.courseName}</h2>
+				</StyledCourseCardHeader>
+				<StyledCouseCardBody>
+					<div className="row">
+						<StarRating
+							rating={props.rating.external.averageScore || 0}
+							starDimension="20px"
+							starSpacing="2px"
+						/>
+						<h3 className="price">
+							{props.price.amount === 0 ? (
+								"Бесплатно"
+							) : (
+								<>
+									{props.price.amount}
+									{currencyMapping[props.price.currency] ||
+										props.price.currency}
+								</>
+							)}
+						</h3>
+					</div>
+					<p>{props.shortDescription}</p>
+				</StyledCouseCardBody>
+			</StyledCourseCard>
+		</Link>
 	);
 };
 

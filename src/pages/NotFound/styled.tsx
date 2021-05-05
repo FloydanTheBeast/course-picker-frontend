@@ -17,6 +17,7 @@ export const Header = styled.h1`
 
 export const Text = styled.p`
 	font-size: 40px;
+	text-align: center;
 	color: #ccc;
 	margin: 0;
 `;

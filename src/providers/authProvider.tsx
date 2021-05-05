@@ -1,11 +1,6 @@
 import { AxiosResponse } from "axios";
 import React, { createContext, useContext, useReducer } from "react";
-import {
-	AuthService,
-	LogoutData,
-	SignInData,
-	SignUpData
-} from "services/authService";
+import { AuthService, SignInData, SignUpData } from "services/authService";
 
 const ACCESS_TOKEN_KEY = "accessToken";
 const REFRESH_TOKEN_KEY = "refreshToken";
@@ -104,9 +99,7 @@ const AuthContextProvider: React.FC<AuthProps> = ({ children }: AuthProps) => {
 						type: "logout"
 					});
 
-					return AuthService.logout({
-						refreshToken
-					} as LogoutData);
+					return AuthService.logout(refreshToken);
 				}
 			}}
 		>
@@ -117,4 +110,4 @@ const AuthContextProvider: React.FC<AuthProps> = ({ children }: AuthProps) => {
 
 const useAuth = () => useContext(AuthContext);
 
-export { AuthContextProvider, useAuth };
+export { AuthContextProvider, AuthContext, useAuth };

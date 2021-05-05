@@ -16,9 +16,7 @@ export interface SignInUsernameData {
 	password: string;
 }
 
-export interface LogoutData {
-	refreshToken: string;
-}
+export type RefreshToken = string;
 
 export type SignInData = SignInEmailData & SignInUsernameData;
 
@@ -35,11 +33,27 @@ export class AuthService {
 		return this.api.post("/signin", data);
 	}
 
-	static logout(data: LogoutData) {
-		return this.api.post("/logout", null, {
-			headers: {
-				"x-refresh-token": data.refreshToken
-			}
-		});
+	static refreshToken() {
+		console.log("Refreshing token...");
+		return this.api
+			.post("/refresh-token", null, {
+				headers: {
+					"x-refresh-token": localStorage.getItem("refreshToken")
+				}
+			})
+			.then(({ data }) => {
+				localStorage.setItem("accessToken", data.accessToken);
+				localStorage.setItem("refreshToken", data.refreshToken);
+			});
+	}
+
+	static logout(refreshToken: RefreshToken) {
+		return this.api
+			.post("/logout", null, {
+				headers: {
+					"x-refresh-token": refreshToken
+				}
+			})
+			.catch();
 	}
 }
