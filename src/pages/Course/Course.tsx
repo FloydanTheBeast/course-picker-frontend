@@ -1,7 +1,10 @@
+import ViewIcon from "icons/eye.svg";
+import LikeIcon from "icons/heart.svg";
 import NotFoundPage from "pages/NotFound";
 import React from "react";
 import StarRating from "react-star-ratings";
 import { CourseService } from "services/coursesService";
+import { UsersService } from "services/usersService";
 import {
 	Categories,
 	Category,
@@ -9,6 +12,7 @@ import {
 	CourseBody,
 	CourseContainer,
 	CourseHeader,
+	CourseStatusBlock,
 	CourseSubblock,
 	LinkImage,
 	Property
@@ -59,6 +63,33 @@ class CoursePage extends React.Component<CoursePageProps, CoursePageState> {
 			});
 	}
 
+	toggleLike() {
+		UsersService.toggleFavourite(
+			this.state.course.id,
+			!this.state.isFavourite
+		)
+			.then(() =>
+				this.setState((prevState) => {
+					return {
+						isFavourite: !prevState.isFavourite
+					};
+				})
+			)
+			.catch(/* TODO: Отображать ошибку */);
+	}
+
+	toggleView() {
+		UsersService.toggleViewed(this.state.course.id, !this.state.isViewed)
+			.then(() =>
+				this.setState((prevState) => {
+					return {
+						isViewed: !prevState.isViewed
+					};
+				})
+			)
+			.catch(/* TODO: Отображать ошибку */);
+	}
+
 	render() {
 		const { course } = this.state;
 
@@ -106,6 +137,22 @@ class CoursePage extends React.Component<CoursePageProps, CoursePageState> {
 										)}
 									</Property>
 								</CourseSubblock>
+								<CourseStatusBlock>
+									<LikeIcon
+										className={`like ${
+											this.state.isFavourite
+												? "active"
+												: ""
+										}`}
+										onClick={this.toggleLike.bind(this)}
+									/>
+									<ViewIcon
+										className={`view ${
+											this.state.isViewed ? "active" : ""
+										}`}
+										onClick={this.toggleView.bind(this)}
+									/>
+								</CourseStatusBlock>
 							</CourseBlock>
 							<CourseBlock>
 								<h2>Категории</h2>

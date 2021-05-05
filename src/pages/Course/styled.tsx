@@ -57,7 +57,6 @@ export const CourseBlock = styled.div<{ horizontal?: boolean }>`
 
 	& > div {
 		flex-grow: 1;
-		flex-basis: 0;
 
 		&:nth-child(2) {
 			align-items: flex-end;
@@ -71,6 +70,37 @@ export const CourseSubblock = styled.div`
 	margin-bottom: 10px;
 `;
 
+export const CourseStatusBlock = styled.div`
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: flex-start !important;
+	justify-content: flex-end;
+
+	& svg {
+		width: 30px;
+		margin-left: 8px;
+		fill: #ccc;
+		transition: fill 0.2s;
+
+		&:hover {
+			cursor: pointer;
+			fill: #888;
+		}
+
+		&.like {
+			&.active {
+				fill: #e74c3c;
+			}
+		}
+
+		&.view {
+			&.active {
+				fill: #555;
+			}
+		}
+	}
+`;
+
 export const Property = styled.div`
 	margin-bottom: 10px;
 
@@ -82,6 +112,7 @@ export const Property = styled.div`
 	& span {
 		color: #555;
 		margin-right: 8px;
+		display: inline-block;
 	}
 `;
 

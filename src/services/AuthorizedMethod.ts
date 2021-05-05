@@ -12,7 +12,7 @@ const AuthorizedMethod = (
 
 	descriptor.value = (...rest) => {
 		return method
-			.call(target, rest, {
+			.call(target, ...rest, {
 				Authorization: `Bearer ${localStorage.getItem("accessToken")}`
 			})
 			.catch((error: AxiosError) => {
@@ -20,7 +20,7 @@ const AuthorizedMethod = (
 					return AuthService.refreshToken().then(() => {
 						console.log("Rerunning method...");
 						return method
-							.call(target, rest, {
+							.call(target, ...rest, {
 								Authorization: `Bearer ${localStorage.getItem(
 									"accessToken"
 								)}`
