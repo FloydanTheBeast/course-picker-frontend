@@ -4,7 +4,9 @@ import NotFoundPage from "pages/NotFound";
 import React from "react";
 import StarRating from "react-star-ratings";
 import { CourseService } from "services/coursesService";
+import { ReviewsService } from "services/reviewsService";
 import { UsersService } from "services/usersService";
+import Reviews from "./Reviews";
 import {
 	Categories,
 	Category,
@@ -88,6 +90,16 @@ class CoursePage extends React.Component<CoursePageProps, CoursePageState> {
 				})
 			)
 			.catch(/* TODO: Отображать ошибку */);
+	}
+
+	onReviewsUpdate() {
+		ReviewsService.getReviews(this.state.course.id).then((reviews) =>
+			this.setState((prevState) => {
+				const newState = Object.assign({}, prevState);
+				newState.course.reviews = reviews;
+				return newState;
+			})
+		);
 	}
 
 	render() {
@@ -178,7 +190,7 @@ class CoursePage extends React.Component<CoursePageProps, CoursePageState> {
 										</a>
 									</LinkImage>
 								</CourseSubblock>
-								<CourseSubblock>
+								<CourseSubblock alignRight>
 									<h2>Автор</h2>
 									<LinkImage>
 										{course.author.icon && (
@@ -203,19 +215,21 @@ class CoursePage extends React.Component<CoursePageProps, CoursePageState> {
 											course.rating.external
 												.averageScore || 0
 										}
-										starDimension="20px"
+										starDimension="24px"
 										starSpacing="2px"
+										starRatedColor="#f39c12"
 									/>
 								</CourseSubblock>
-								<CourseSubblock>
+								<CourseSubblock alignRight>
 									<p>Внутренний рейтинг</p>
 									<StarRating
 										rating={
 											course.rating.internal
 												.averageScore || 0
 										}
-										starDimension="20px"
+										starDimension="24px"
 										starSpacing="2px"
+										starRatedColor="#f39c12"
 									/>
 								</CourseSubblock>
 							</CourseBlock>
@@ -223,6 +237,15 @@ class CoursePage extends React.Component<CoursePageProps, CoursePageState> {
 							<CourseBlock>
 								<h2>Описание</h2>
 								<p>{course.description}</p>
+							</CourseBlock>
+							<hr />
+							<CourseBlock>
+								<h2>Отзывы</h2>
+								<Reviews
+									courseId={course.id}
+									reviews={course.reviews}
+									onUpdate={this.onReviewsUpdate.bind(this)}
+								/>
 							</CourseBlock>
 						</CourseBody>
 					</>

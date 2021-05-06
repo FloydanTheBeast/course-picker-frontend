@@ -20,6 +20,7 @@ declare interface CoursePreview {
 			countReviews: number;
 		};
 	};
+	reviews: Review[];
 	courseLanguages: string[];
 	author: {
 		icon: string;
@@ -45,4 +46,19 @@ declare interface CourseInfo {
 	course: CoursePreview;
 	isFavourite: boolean;
 	isViewed: boolean;
+}
+
+declare interface Review {
+	rating: number;
+	text: string;
+	creationDate: string;
+	user: {
+		username: string;
+	};
+	id: string;
+}
+
+declare interface UserData {
+	email: string;
+	username: string;
 }

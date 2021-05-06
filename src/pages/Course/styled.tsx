@@ -57,17 +57,15 @@ export const CourseBlock = styled.div<{ horizontal?: boolean }>`
 
 	& > div {
 		flex-grow: 1;
-
-		&:nth-child(2) {
-			align-items: flex-end;
-		}
 	}
 `;
 
-export const CourseSubblock = styled.div`
+export const CourseSubblock = styled.div<{ alignRight?: boolean }>`
 	display: flex;
 	flex-flow: column nowrap;
 	margin-bottom: 10px;
+
+	${({ alignRight }) => (alignRight ? `align-items: flex-end` : ``)};
 `;
 
 export const CourseStatusBlock = styled.div`
