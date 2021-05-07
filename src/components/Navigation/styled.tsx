@@ -5,7 +5,7 @@ import styled from "styled-components";
 export const NavContainer = styled.nav`
 	width: 100%;
 	/* padding: 1rem; */
-	background: #000;
+	background: #ffd7ba;
 	height: 64px;
 	display: flex;
 	flex-flow: row wrap;

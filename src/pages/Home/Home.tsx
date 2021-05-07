@@ -1,4 +1,3 @@
-import CourseList from "components/CourseList";
 import { useAuth } from "providers/authProvider";
 import React from "react";
 
@@ -12,7 +11,7 @@ const HomePage = () => {
 			{isAuthenticated ? (
 				<>
 					<h1>Добро пожаловать!</h1>
-					<CourseList />
+					{/* <CourseList /> */}
 				</>
 			) : (
 				<h1>Вы не авторизованы</h1>

@@ -1,4 +1,5 @@
 import Logo from "components/Logo";
+import Search from "components/Search";
 import withTooltip from "components/Tooltip";
 import { useAuth } from "providers/authProvider";
 import React from "react";
@@ -37,12 +38,16 @@ const Navigation = () => {
 	const ProfileTooltip = withTooltip(<MenuIcon />, <TooltipMenuContent />, {
 		offsetTop: 10
 	});
+
 	return (
 		<NavContainer>
 			<Logo />
 			<NavGroup>
 				{isAuthenticated ? (
-					<ProfileTooltip />
+					<>
+						<Search />
+						<ProfileTooltip />
+					</>
 				) : (
 					<>
 						<NavItem activeClassName="active" to="/signup">

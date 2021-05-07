@@ -1,23 +1,25 @@
+import LogoIcon from "icons/logo.svg";
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const StyledLogo = styled(Link)`
-	color: #888;
-	font-size: 36px;
-	font-weight: bold;
-	transition: color 0.2s;
+const LogoLink = styled(Link)`
+	display: flex;
 
-	&:hover {
-		color: #fff;
+	& svg {
+		width: 40px;
+		transition: fill 0.3s;
+		&:hover {
+			fill: #555;
+		}
 	}
 `;
 
 const Logo: React.FC = () => {
 	return (
-		<StyledLogo className="app-logo" to="/">
-			MOOC
-		</StyledLogo>
+		<LogoLink to="/">
+			<LogoIcon />
+		</LogoLink>
 	);
 };
 

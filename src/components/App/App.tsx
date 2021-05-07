@@ -2,6 +2,7 @@ import Footer from "components/Footer";
 import Navigation from "components/Navigation";
 import PrivateRoute from "components/PrivateRoute";
 import CoursePage from "pages/Course";
+import CoursesPage from "pages/Courses";
 import HomePage from "pages/Home";
 import NotFoundPage from "pages/NotFound";
 import SignInPage from "pages/SignIn";
@@ -59,6 +60,11 @@ class App extends Component {
 							<Route path="/signin">
 								<SignInPage />
 							</Route>
+							<PrivateRoute exact path="/courses/">
+								<CoursesContextProvider>
+									<CoursesPage />
+								</CoursesContextProvider>
+							</PrivateRoute>
 							<PrivateRoute
 								path="/courses/:courseId"
 								render={({ match }) => {

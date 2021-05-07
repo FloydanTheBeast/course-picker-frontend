@@ -6,8 +6,18 @@ export class CourseService {
 		baseURL: "https://api.mooc.ij.je/courses"
 	});
 
-	static getCourses(pageNumber = 1, pageSize = 1) {
-		return this.api.get(`/?pageNumber=${pageNumber}&pageSize=${pageSize}`);
+	static getCourses(
+		pageNumber = 1,
+		pageSize = 1,
+		searchQuery: string = null
+	) {
+		return this.api
+			.get(
+				`/?pageNumber=${pageNumber}&pageSize=${pageSize}${
+					searchQuery ? `&searchQuery=${searchQuery}` : ""
+				}`
+			)
+			.then((res) => res.data);
 	}
 
 	@AuthorizedMethod
