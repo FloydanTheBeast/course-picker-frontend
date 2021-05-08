@@ -3,6 +3,7 @@ import Search from "components/Search";
 import withTooltip from "components/Tooltip";
 import { useAuth } from "providers/authProvider";
 import React from "react";
+import { Link } from "react-router-dom";
 import {
 	MenuIcon,
 	NavContainer,
@@ -16,6 +17,7 @@ const TooltipMenuContent = () => {
 
 	return (
 		<StyledTooltipMenuContent className="tooltip-menu">
+			<Link to="/profile">Профиль</Link>
 			<a
 				onClick={() =>
 					logout().catch(() => {

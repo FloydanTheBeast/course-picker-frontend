@@ -86,6 +86,7 @@ const SearchModal: React.FC<SearchModalProps> = ({
 		window.addEventListener("click", handleOutsideClick);
 		window.addEventListener("keydown", handleKeyDown);
 		return () => {
+			clearTimeout(updatePreviewTimer);
 			document.body.removeChild(modalRoot);
 			document.body.style.overflow = "";
 			window.removeEventListener("click", handleOutsideClick);

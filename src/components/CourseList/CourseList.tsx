@@ -33,11 +33,13 @@ const CourseList: React.FC<CourseListProps> = (props: CourseListProps) => {
 					<CourseCard key={index} {...course} />
 				))}
 			</StyledCourseList>
-			<PageControls
-				currentPage={props.currentPage}
-				countPages={props.countPages}
-				onPageChange={props.onPageChange}
-			/>
+			{props.currentPage && (
+				<PageControls
+					currentPage={props.currentPage}
+					countPages={props.countPages}
+					onPageChange={props.onPageChange}
+				/>
+			)}
 		</>
 	);
 };

@@ -5,6 +5,7 @@ import CoursePage from "pages/Course";
 import CoursesPage from "pages/Courses";
 import HomePage from "pages/Home";
 import NotFoundPage from "pages/NotFound";
+import ProfilePage from "pages/Profile";
 import SignInPage from "pages/SignIn";
 import SignUpPage from "pages/SignUp";
 import { AuthContextProvider } from "providers/authProvider";
@@ -74,6 +75,10 @@ class App extends Component {
 										/>
 									);
 								}}
+							/>
+							<PrivateRoute
+								path="/profile"
+								component={ProfilePage}
 							/>
 							<Route path="*">
 								<NotFoundPage />

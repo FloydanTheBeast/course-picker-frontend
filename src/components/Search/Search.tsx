@@ -25,7 +25,6 @@ const StyledSearchIcon = styled(SearchIcon)`
 const Search = () => {
 	const [modalShown, setModalShown] = useState(false);
 	const modalRoot = document.createElement("div");
-	console.log(modalShown);
 
 	return (
 		<>

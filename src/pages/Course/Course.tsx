@@ -129,7 +129,7 @@ class CoursePage extends React.Component<CoursePageProps, CoursePageState> {
 										<span>
 											{course.price.amount === 0
 												? "Бесплатно"
-												: `${
+												: `${course.price.amount} ${
 														currencyMapping[
 															course.price
 																.currency

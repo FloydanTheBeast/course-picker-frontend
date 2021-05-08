@@ -22,6 +22,13 @@ export class UsersService {
 	}
 
 	@AuthorizedMethod
+	public static getFavourite(headers?: any) {
+		return this.api
+			.get("/favourite", { headers })
+			.then((res) => res.data["favouriteCourses"]);
+	}
+
+	@AuthorizedMethod
 	public static toggleViewed(
 		courseId: string,
 		isViewed: boolean,
@@ -34,5 +41,12 @@ export class UsersService {
 		}
 
 		return this.api.delete(`/viewed?id=${courseId}`, { headers });
+	}
+
+	@AuthorizedMethod
+	public static getViewed(headers?: any) {
+		return this.api
+			.get("/viewed", { headers })
+			.then((res) => res.data["viewedCourses"]);
 	}
 }

@@ -61,11 +61,16 @@ export const StyledTooltipMenuContent = styled.div`
 		box-sizing: border-box;
 		width: 100%;
 		padding: 8px;
+		transition: all 0.2s;
+
+		&:hover {
+			color: #fff;
+			background-color: #3498db;
+		}
 	}
 	.tootlip-menu {
 		&_logout {
 			color: #e74c3c;
-			transition: all 0.2s;
 
 			&:hover {
 				color: #fff;
