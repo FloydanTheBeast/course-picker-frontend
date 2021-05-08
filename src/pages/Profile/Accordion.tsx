@@ -15,7 +15,6 @@ const AccordionContainer = styled.div`
 	& .title {
 		display: flex;
 		align-items: center;
-		background-color: #eee;
 		padding: 12px 16px;
 		margin: 0;
 		font-size: 20px;
@@ -27,10 +26,10 @@ const AccordionContainer = styled.div`
 		&::after {
 			content: "";
 			position: absolute;
-			right: 40px;
-			width: 15px;
-			height: 15px;
-			border-width: 0 5px 5px 0;
+			right: 16px;
+			width: 10px;
+			height: 10px;
+			border-width: 0 3px 3px 0;
 			border-color: #333;
 			border-style: solid;
 			transform: rotateZ(135deg);
