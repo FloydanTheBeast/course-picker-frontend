@@ -1,12 +1,12 @@
+import FiltersIcon from "icons/filters.svg";
+import SearchIcon from "icons/search.svg";
 import { useCourses } from "providers/coursesProvider";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import { Link, useHistory } from "react-router-dom";
 import StarRating from "react-star-ratings";
-import styled from "styled-components";
-import SearchIcon from "icons/search.svg";
-import FiltersIcon from "icons/filters.svg";
 import { CategoriesService } from "services/categoriesService";
+import styled from "styled-components";
 
 interface SearchModalProps {
 	modalRoot: HTMLElement;
@@ -19,7 +19,7 @@ const ModalContainer = styled.div`
 	bottom: 0;
 	left: 0;
 	right: 0;
-	background-color: rgba(0, 0, 0, 0.9);
+	background-color: rgba(0, 0, 0, 0.92);
 	animation: modal-appear 0.2s ease-out 1;
 	overflow-y: auto;
 
@@ -37,7 +37,7 @@ const ModalContainer = styled.div`
 const ContentContainer = styled.div`
 	width: 60%;
 	min-width: 300px;
-	margin: 30px auto;
+	margin: 150px auto 50px;
 	display: flex;
 	flex-flow: column wrap;
 `;
@@ -57,7 +57,7 @@ const SearchRow = styled.div`
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		background-color: rgba(0, 0, 0, 0.3);
+		background-color: rgba(0, 0, 0, 0.4);
 		border: 2px solid #eee;
 		transition: all 0.2s;
 
@@ -123,8 +123,8 @@ const FiltersContainer = styled.div`
 `;
 
 const Category = styled.div`
-	background-color: rgba(0, 0, 0, 0.3);
-	border: 1px solid #aaa;
+	background-color: rgba(0, 0, 0, 0.4);
+	border: 2px solid #aaa;
 	padding: 5px 10px;
 	border-radius: 16px;
 	color: #aaa;
@@ -146,7 +146,7 @@ const Category = styled.div`
 
 const SearchInput = styled.input`
 	border: 2px solid #eee;
-	background: rgba(0, 0, 0, 0.3);
+	background: rgba(0, 0, 0, 0.4);
 	color: #fff;
 	padding: 12px;
 	flex-grow: 1;
@@ -161,7 +161,7 @@ const CoursePreviewList = styled.div`
 	& .course-preview {
 		display: flex;
 		flex-flow: row nowrap;
-		background-color: rgba(0, 0, 0, 0.1);
+		background-color: rgba(0, 0, 0, 0.15);
 		padding: 16px 10px;
 		align-items: center;
 		border-bottom: 1px solid #555;
@@ -169,7 +169,7 @@ const CoursePreviewList = styled.div`
 
 		&:hover {
 			cursor: pointer;
-			background-color: rgba(0, 0, 0, 0.7);
+			background-color: rgba(0, 0, 0, 0.9);
 			border-color: #eee;
 		}
 
