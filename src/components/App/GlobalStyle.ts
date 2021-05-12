@@ -66,6 +66,10 @@ const GlobalStyle = createGlobalStyle`
 		color: #888;
 	}
 
+	span {
+		font-weight: 200;
+	}
+
 	input::placeholder,
 	textarea::placeholder {
 		font-weight: 200;

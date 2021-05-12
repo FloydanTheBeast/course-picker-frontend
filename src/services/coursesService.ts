@@ -9,13 +9,15 @@ export class CourseService {
 	static getCourses(
 		pageNumber = 1,
 		pageSize = 1,
-		searchQuery: string = null
+		searchQuery: string = null,
+		categories?: string
 	) {
 		return this.api
 			.get(
-				`/?pageNumber=${pageNumber}&pageSize=${pageSize}${
-					searchQuery ? `&searchQuery=${searchQuery}` : ""
-				}`
+				`/?pageNumber=${pageNumber}
+				&pageSize=${pageSize}
+				${searchQuery ? `&searchQuery=${searchQuery}` : ""}
+				${categories ? `&categories=${categories}` : ""}`
 			)
 			.then((res) => res.data);
 	}

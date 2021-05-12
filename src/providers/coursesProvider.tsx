@@ -13,6 +13,7 @@ interface State {
 		[key: number]: CoursePreview[];
 	};
 	searchQuery: string;
+	categories: string;
 }
 
 enum ActionTypes {
@@ -25,6 +26,7 @@ interface ActionPayload {
 	pageNumber: number;
 	courses: CoursePreview[];
 	searchQuery?: string;
+	categories?: string;
 }
 
 interface Action {
@@ -34,7 +36,10 @@ interface Action {
 
 const coursesReducer = (
 	coursesState: State,
-	{ type, payload: { pageNumber, countPages, courses, searchQuery } }: Action
+	{
+		type,
+		payload: { pageNumber, countPages, courses, searchQuery, categories }
+	}: Action
 ): State => {
 	switch (type) {
 		case "addCourses": {
@@ -51,6 +56,7 @@ const coursesReducer = (
 			return Object.assign({}, coursesState, {
 				countPages,
 				searchQuery,
+				categories,
 				courses: {
 					[pageNumber]: courses
 				}
@@ -61,7 +67,11 @@ const coursesReducer = (
 
 interface CoursesContext {
 	coursesState: State;
-	fetchCourses: (pageNumber: number, searchQuery?: string) => void;
+	fetchCourses: (
+		pageNumber: number,
+		searchQuery?: string,
+		categories?: string
+	) => void;
 }
 
 const CoursesContext = createContext({} as CoursesContext);
@@ -72,7 +82,8 @@ const CoursesContextProvider: React.FC<ProviderProps> = ({
 	const [coursesState, dispatchCoursesState] = useReducer(coursesReducer, {
 		countPages: null,
 		courses: {},
-		searchQuery: ""
+		searchQuery: "",
+		categories: ""
 	});
 
 	return (
@@ -81,16 +92,21 @@ const CoursesContextProvider: React.FC<ProviderProps> = ({
 				coursesState,
 				fetchCourses: async (
 					pageNumber: number,
-					searchQuery = ""
+					searchQuery = "",
+					categories = ""
 				): Promise<void> => {
-					if (coursesState.searchQuery !== searchQuery) {
+					if (
+						coursesState.searchQuery !== searchQuery ||
+						coursesState.categories != categories
+					) {
 						const {
 							courses,
 							countPages
 						} = await CourseService.getCourses(
 							pageNumber,
 							PAGE_SIZE,
-							searchQuery
+							searchQuery,
+							categories
 						);
 
 						dispatchCoursesState({
@@ -99,7 +115,8 @@ const CoursesContextProvider: React.FC<ProviderProps> = ({
 								pageNumber,
 								countPages,
 								courses,
-								searchQuery
+								searchQuery,
+								categories
 							}
 						});
 

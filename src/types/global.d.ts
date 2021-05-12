@@ -33,12 +33,7 @@ declare interface CoursePreview {
 		link: string;
 		icon: string;
 	};
-	categories: {
-		id: number;
-		name: {
-			[key: string]: string;
-		};
-	}[];
+	categories: Category[];
 	countViews: number;
 }
 
@@ -61,4 +56,11 @@ declare interface Review {
 declare interface UserData {
 	email: string;
 	username: string;
+}
+
+declare interface Category {
+	id: number;
+	name: {
+		[key: string]: string;
+	};
 }

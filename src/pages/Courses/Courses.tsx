@@ -12,14 +12,16 @@ const CoursesPage: React.FC = () => {
 	const queryParams = new URLSearchParams(search);
 
 	const searchQuery = queryParams.get("search") || "";
+	const categories = queryParams.get("categories") || "";
 	const currentPage = Number(queryParams.get("page")) || 1;
 
 	const { fetchCourses, coursesState } = useCourses();
 
-	useEffect(() => fetchCourses(currentPage, searchQuery), [
+	useEffect(() => fetchCourses(currentPage, searchQuery, categories), [
 		currentPage,
 		searchQuery,
-		fetchCourses
+		fetchCourses,
+		categories
 	]);
 
 	return currentPage in coursesState.courses ? (

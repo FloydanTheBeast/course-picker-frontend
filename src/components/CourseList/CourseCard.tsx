@@ -78,6 +78,7 @@ const StyledCouseCardBody = styled.div`
 	}
 
 	.price {
+		font-size: 20px;
 		margin: 0;
 		color: #666;
 	}
@@ -121,8 +122,9 @@ const CourseCard: React.FC<CourseCardProps> = (props: CourseCardProps) => {
 							rating={props.rating.external.averageScore || 0}
 							starDimension="20px"
 							starSpacing="2px"
+							starRatedColor="#f39c12"
 						/>
-						<h3 className="price">
+						<span className="price">
 							{props.price.amount === 0 ? (
 								"Бесплатно"
 							) : (
@@ -132,7 +134,7 @@ const CourseCard: React.FC<CourseCardProps> = (props: CourseCardProps) => {
 										props.price.currency}
 								</>
 							)}
-						</h3>
+						</span>
 					</div>
 					<p>{props.shortDescription}</p>
 				</StyledCouseCardBody>

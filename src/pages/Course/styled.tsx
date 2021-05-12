@@ -122,7 +122,7 @@ export const Categories = styled.div`
 export const Category = styled.div`
 	border: 1px solid #aaa;
 	padding: 5px 10px;
-	border-radius: 8px;
+	border-radius: 16px;
 	color: #888;
 	margin: 0 10px 10px 0;
 `;
