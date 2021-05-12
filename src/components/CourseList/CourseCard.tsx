@@ -12,9 +12,12 @@ const StyledCourseCard = styled.div`
 	border-radius: 8px;
 	overflow: hidden;
 	box-shadow: 2px 2px 6px 1px rgba(0, 0, 0, 0.25);
+	transition: all 0.2s ease-in-out;
 
 	&:hover {
 		cursor: pointer;
+		transform: scale(1.05);
+		box-shadow: 2px 2px 5px 4px rgba(0, 0, 0, 0.4);
 	}
 `;
 
