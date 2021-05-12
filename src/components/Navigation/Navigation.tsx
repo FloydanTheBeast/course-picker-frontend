@@ -5,12 +5,12 @@ import { useAuth } from "providers/authProvider";
 import React from "react";
 import { Link } from "react-router-dom";
 import {
-	MenuIcon,
 	NavContainer,
 	NavGroup,
 	NavItem,
 	StyledTooltipMenuContent
 } from "./styled";
+import ProfileIcon from "icons/user.svg";
 
 const TooltipMenuContent = () => {
 	const { logout } = useAuth();
@@ -37,9 +37,13 @@ const Navigation = () => {
 		authState: { isAuthenticated }
 	} = useAuth();
 
-	const ProfileTooltip = withTooltip(<MenuIcon />, <TooltipMenuContent />, {
-		offsetTop: 10
-	});
+	const ProfileTooltip = withTooltip(
+		<ProfileIcon />,
+		<TooltipMenuContent />,
+		{
+			offsetTop: 10
+		}
+	);
 
 	return (
 		<NavContainer>

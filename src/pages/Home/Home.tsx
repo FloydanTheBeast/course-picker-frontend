@@ -5,18 +5,17 @@ import Compilations from "./Compilations";
 
 const HomePage = () => {
 	const {
-		authState: {
-			isAuthenticated,
-			user: { username }
-		}
+		authState: { isAuthenticated, user }
 	} = useAuth();
+
+	document.title = "MOOC · Платформа для поиска курсов";
 
 	return (
 		<Container>
 			{isAuthenticated ? (
 				<>
 					<h1>
-						Добро пожаловать, <span>{username}</span>!
+						Добро пожаловать, <span>{user.username}</span>
 					</h1>
 					<Compilations />
 				</>

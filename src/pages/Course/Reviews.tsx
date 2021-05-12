@@ -1,3 +1,4 @@
+import Button from "components/Button";
 import MessageBox from "components/MessageBox";
 import DeleteIcon from "icons/delete.svg";
 import { useAuth } from "providers/authProvider";
@@ -22,9 +23,8 @@ const ReviewContainer = styled.div`
 	display: flex;
 	flex-flow: column nowrap;
 	background: #fff;
-	border: 1px solid #ccc;
 	padding: 20px;
-	box-shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.25);
+	box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.25);
 
 	&:not(:last-child) {
 		margin-bottom: 20px;
@@ -66,23 +66,15 @@ const ReviewContainer = styled.div`
 			box-sizing: border-box;
 			margin: 16px 0;
 			resize: none;
-			border: 1px solid #ccc;
+			border: 1px solid #ddd;
+			border-radius: 8px;
+			padding: 8px;
+			color: #555;
 		}
 
 		&_save-btn {
 			display: block;
-			text-align: center;
 			margin: 0 auto;
-			padding: 10px 20px;
-			background: #000;
-			color: #ccc;
-			transition: color 0.2s;
-			border-radius: 16px;
-
-			&:hover {
-				cursor: pointer;
-				color: #fff;
-			}
 		}
 
 		&_delete-icon {
@@ -206,9 +198,9 @@ const Reviews: React.FC<ReviewsProps> = ({
 							placeholder="Оставьте свой комментарий..."
 							rows={6}
 						></textarea>
-						<button className="review_save-btn" type="submit">
+						<Button type="submit" className="review_save-btn">
 							Оставить отзыв
-						</button>
+						</Button>
 					</form>
 				</ReviewContainer>
 			)}

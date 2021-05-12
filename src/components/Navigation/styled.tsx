@@ -25,33 +25,40 @@ export const NavGroup = styled.div`
 	height: 100%;
 	display: flex;
 	align-items: center;
+
+	& svg {
+		width: 20px;
+		height: 20px;
+		padding: 8px;
+		background-color: #333;
+		border-radius: 50%;
+		fill: #fff;
+		transition: all 0.2s;
+		overflow: visible;
+		margin-left: 8px;
+
+		&:hover {
+			cursor: pointer;
+			fill: #333;
+			background-color: #fff;
+		}
+	}
 `;
 
 export const NavItem = styled(NavLink)`
-	display: inline-block;
 	transition: color 0.2s;
-	color: #ccc;
-	padding: 8px;
+	color: #333;
+	margin: 8px;
+	font-weight: 600;
+	border-bottom: 2px solid;
 
 	&:hover {
 		color: #fff;
 	}
 
 	&.active {
-		color: #fff;
+		color: #eee;
 		cursor: default;
-	}
-`;
-
-export const MenuIcon = styled(ProfileIcon)`
-	fill: #888;
-	width: 30px;
-	height: 30px;
-	transition: fill 0.2s;
-
-	&:hover {
-		fill: #fff;
-		cursor: pointer;
 	}
 `;
 

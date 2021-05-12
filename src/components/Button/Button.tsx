@@ -17,13 +17,17 @@ const Button: React.FC<ButtonProps> = ({ children, ...props }: ButtonProps) => {
 
 const StyledButton = styled(Button)`
 	color: #fff;
-	background: #000;
+	background-color: #3498db;
 	padding: 12px 16px;
-	border-radius: 12px;
 	width: auto;
+	border: none;
+	transition: all 0.3s;
+	border-radius: 25px;
 
 	&:hover {
 		cursor: pointer;
+		background-color: #207bb8;
+		border-radius: 0;
 	}
 `;
 

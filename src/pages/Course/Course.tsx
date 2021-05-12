@@ -41,6 +41,8 @@ class CoursePage extends React.Component<CoursePageProps, CoursePageState> {
 	constructor(props: CoursePageProps) {
 		super(props);
 
+		document.title = "MOOC · Загрузка курса";
+
 		this.state = {
 			isFound: true,
 			isLoading: true,
@@ -50,14 +52,15 @@ class CoursePage extends React.Component<CoursePageProps, CoursePageState> {
 		};
 
 		CourseService.getCourse(props.courseId)
-			.then((data) =>
+			.then((data) => {
+				document.title = `MOOC · Курс "${data.course.courseName}"`;
 				this.setState({
 					isLoading: false,
 					isViewed: data.isViewed,
 					isFavourite: data.isFavourite,
 					course: data.course
-				})
-			)
+				});
+			})
 			.catch(() => {
 				this.setState({
 					isFound: false
@@ -185,7 +188,11 @@ class CoursePage extends React.Component<CoursePageProps, CoursePageState> {
 											src={course.vendor.icon}
 											alt={`Логотип ${course.vendor.name}`}
 										/>
-										<a href={course.vendor.link}>
+										<a
+											target="_blank"
+											rel="noreferrer"
+											href={course.vendor.link}
+										>
 											{course.vendor.name}
 										</a>
 									</LinkImage>
@@ -199,7 +206,11 @@ class CoursePage extends React.Component<CoursePageProps, CoursePageState> {
 												alt={`Картинка автора ${course.author.name}`}
 											/>
 										)}
-										<a href={course.author.link}>
+										<a
+											target="_blank"
+											rel="noreferrer"
+											href={course.author.link}
+										>
 											{course.author.name}
 										</a>
 									</LinkImage>

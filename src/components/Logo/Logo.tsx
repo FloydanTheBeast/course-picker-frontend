@@ -8,9 +8,19 @@ const LogoLink = styled(Link)`
 
 	& svg {
 		width: 40px;
-		transition: fill 0.3s;
+		transition: all 0.3s;
+
+		& .logo_svg__logo-text {
+			transition: fill 0.3s;
+		}
+
 		&:hover {
-			fill: #555;
+			fill: #fff;
+			transform: scale(1.2);
+
+			& .logo_svg__logo-text {
+				fill: #000;
+			}
 		}
 	}
 `;

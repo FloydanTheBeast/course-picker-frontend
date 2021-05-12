@@ -18,47 +18,65 @@ interface MessageBoxProps {
 }
 
 const StyledMessageBox = styled.div`
-	color: #333;
 	display: flex;
 	flex-flow: row nowrap;
-	align-items: center;
+	align-items: stretch;
+	color: #333;
 	margin-bottom: 10px;
 	border-radius: 8px;
-	border: 2px solid;
+	overflow: hidden;
+	box-shadow: 2px 2px 6px 1px rgb(0 0 0 / 25%);
 
-	&.error {
-		&.primary {
-			background-color: #e74c3c;
+	& .icon-container {
+		display: flex;
+		align-items: center;
+		margin-right: 12px;
+	}
+
+	&.primary {
+		& h3 {
 			color: #fff;
-
-			& .icon {
-				fill: #fff;
-			}
 		}
 
-		border-color: #e74c3c;
+		& p {
+			color: #eee;
+		}
+	}
 
-		& .icon {
-			fill: #e74c3c;
+	&.error {
+		& .icon-container {
+			background-color: #e74c3c;
+		}
+
+		&.primary {
+			background-color: #e74c3c;
 		}
 	}
 
 	&.success {
-		border-color: #2ecc71;
-
-		& .icon {
-			fill: #2ecc71;
+		& .icon-container {
+			background-color: #2ecc71;
 		}
 	}
 
 	& .icon {
 		width: 16px;
 		height: 16px;
+		fill: rgba(255, 255, 255, 0.8);
 		margin: 0 10px;
+		border: 1px solid rgba(255, 255, 255, 0.8);
+		padding: 4px;
+		border-radius: 50%;
+	}
+
+	& h3 {
+		margin: 8px 0 0 0;
 	}
 
 	& p {
-		margin: 10px 0;
+		margin: 0 0 8px 0;
+		color: #888;
+		font-size: 14px;
 	}
 `;
 
@@ -87,8 +105,13 @@ const MessageBox: React.FC<MessageBoxProps> = ({
 
 	return (
 		<StyledMessageBox className={`${type} ${primary ? "primary" : ""}`}>
-			<Icon className="icon" />
-			<p>{message}</p>
+			<div className="icon-container">
+				<Icon className="icon" />
+			</div>
+			<div>
+				<h3>{type === "error" ? "Ошибка" : "Успех"}</h3>
+				<p>{message}</p>
+			</div>
 		</StyledMessageBox>
 	);
 };

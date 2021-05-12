@@ -15,7 +15,7 @@ export const CourseContainer = styled.div`
 
 	hr {
 		border: none;
-		background: #ccc;
+		background: #ddd;
 		height: 1px;
 	}
 `;

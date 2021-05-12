@@ -17,7 +17,8 @@
 		"api": ["./api/"],
 		"providers": ["./providers/"],
 		"services": ["./services/"],
-		"icons": ["../assets/icons/"]
+		"icons": ["../assets/icons/"],
+		"fonts": ["../assets/fonts/"]
 	},
 	"exclude": ["node_modules"]
 }

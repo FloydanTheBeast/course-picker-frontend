@@ -4,6 +4,8 @@ import React, { useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 
 const CoursesPage: React.FC = () => {
+	document.title = "MOOC · Поиск по курсам";
+
 	const { search } = useLocation();
 	const history = useHistory();
 

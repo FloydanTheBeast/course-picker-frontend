@@ -11,6 +11,8 @@ const ProfilePage = () => {
 		authState: { user }
 	} = useAuth();
 
+	document.title = `MOOC · Профиль пользователя ${user.username}`;
+
 	const [favouriteCourses, setFavouriteCourses] = useState<CoursePreview[]>(
 		[]
 	);

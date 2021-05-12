@@ -6,6 +6,7 @@ export const Container = styled.div`
 
 		& > span {
 			color: #888;
+			border-bottom: 2px solid #888;
 		}
 	}
 `;

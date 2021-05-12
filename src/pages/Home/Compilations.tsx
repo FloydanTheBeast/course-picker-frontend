@@ -20,15 +20,17 @@ const CompilationList = styled.div`
 	display: flex;
 	flex-flow: row nowrap;
 	margin-bottom: 20px;
+	overflow-x: auto;
+	padding: 10px;
 `;
 
 const CompilationButton = styled.div<{ icon: string }>`
-	width: 50px;
-	height: 50px;
+	min-width: 50px;
+	min-height: 50px;
 	background-image: ${(props) => `url(${props.icon})`};
 	background-position: center center;
 	background-repeat: no-repeat;
-	background-size: 80%;
+	background-size: 95%;
 	border: 2px solid #eee;
 	border-radius: 50%;
 	margin-right: 20px;
@@ -94,7 +96,7 @@ class Compilations extends React.Component<any, CompilationsState> {
 
 		return (
 			<>
-				<h2>Подборки</h2>
+				<h2>Доступные подборки</h2>
 				<CompilationList>
 					{this.state.compilations.map((compilation, index) => {
 						return (
@@ -104,7 +106,7 @@ class Compilations extends React.Component<any, CompilationsState> {
 										? "active"
 										: ""
 								}`}
-								key={index}
+								key={`compilation-${index}`}
 								icon={compilation.icon}
 								title={compilation.name["ru"]}
 								onClick={() => this.selectCompilation(index)}
@@ -112,7 +114,7 @@ class Compilations extends React.Component<any, CompilationsState> {
 						);
 					})}
 				</CompilationList>
-				{courses && <CourseList courses={courses} />}
+				<CourseList courses={courses} />
 			</>
 		);
 	}

@@ -17,7 +17,8 @@ module.exports = {
 			api: path.resolve(__dirname, "src/api/"),
 			providers: path.resolve(__dirname, "src/providers/"),
 			services: path.resolve(__dirname, "src/services/"),
-			icons: path.resolve(__dirname, "assets/icons/")
+			icons: path.resolve(__dirname, "assets/icons/"),
+			fonts: path.resolve(__dirname, "assets/fonts/")
 		}
 	},
 	devServer: {
@@ -48,13 +49,26 @@ module.exports = {
 			{
 				test: /\.svg$/,
 				use: ["@svgr/webpack"]
+			},
+			{
+				test: /\.(woff|woff2|eot|ttf|otf)$/,
+				use: [
+					{
+						loader: "file-loader",
+						options: {
+							name: "[name].[ext]",
+							outputPath: "fonts/"
+						}
+					}
+				]
 			}
 		]
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
 			template: "./src/index.html",
-			publicPath: "/"
+			publicPath: "/",
+			favicon: "./assets/icons/favicon.ico"
 		})
 	]
 };
