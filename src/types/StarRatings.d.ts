@@ -5,7 +5,7 @@ declare module "react-star-ratings" {
 		starDimension?: string;
 		starSpacing?: string;
 		starRatedColor?: string;
-		changeRating?: (rating: int) => void;
+		changeRating?: (rating: number) => void;
 		starHoverColor?: string;
 	}>;
 	export default value;
