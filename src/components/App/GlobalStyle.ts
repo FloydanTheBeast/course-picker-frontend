@@ -1,26 +1,6 @@
-import RobotoLight from "fonts/Roboto/Roboto-Light.ttf";
-import RobotoMedium from "fonts/Roboto/Roboto-Medium.ttf";
-import RobotoRegular from "fonts/Roboto/Roboto-Regular.ttf";
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-	@font-face {
-		font-family: "Roboto";
-		src: url(${RobotoRegular});
-	}
-
-	@font-face {
-		font-family: "Roboto";
-		src: url(${RobotoMedium});
-		font-weight: bold;
-	}
-
-	@font-face {
-		font-family: "Roboto";
-		src: url(${RobotoLight});
-		font-weight: 200;
-	}
-
 	html, body {
 		height: 100%;
 	}

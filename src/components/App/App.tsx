@@ -12,6 +12,7 @@ import { AuthContextProvider } from "providers/authProvider";
 import { CoursesContextProvider } from "providers/coursesProvider";
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import "../../fonts.css";
 import GlobalStyle from "./GlobalStyle";
 
 class App extends Component {
