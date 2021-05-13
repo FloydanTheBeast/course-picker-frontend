@@ -86,6 +86,12 @@ const GlobalStyle = createGlobalStyle`
 		margin: 0 auto;
 		padding: 2rem 0;
 	}
+
+	@media (max-width: 768px) {
+		.content-container {
+			width: 90%;
+		}
+	}
 `;
 
 export default GlobalStyle;

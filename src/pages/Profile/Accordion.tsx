@@ -9,7 +9,6 @@ interface AccordionProps {
 
 const AccordionContainer = styled.div`
 	position: relative;
-	border: 1px solid #eee;
 	user-select: none;
 
 	& .title {
@@ -18,6 +17,7 @@ const AccordionContainer = styled.div`
 		padding: 12px 16px;
 		margin: 0;
 		font-size: 20px;
+		border: 1px solid #eee;
 
 		&:hover {
 			cursor: pointer;
@@ -39,7 +39,7 @@ const AccordionContainer = styled.div`
 	}
 
 	& .content {
-		padding: 12px 16px;
+		padding: 12px 0;
 		display: none;
 	}
 

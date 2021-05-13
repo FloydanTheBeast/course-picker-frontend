@@ -78,9 +78,10 @@ const StyledCouseCardBody = styled.div`
 	}
 
 	.price {
-		font-size: 20px;
+		font-size: 16px;
 		margin: 0;
-		color: #666;
+		color: #555;
+		font-weight: 400;
 	}
 
 	& p {
