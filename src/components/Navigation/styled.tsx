@@ -49,7 +49,7 @@ export const NavItem = styled(NavLink)`
 	margin: 8px;
 	font-weight: 600;
 	border-bottom: 2px solid;
-	transition: color ease-in 0.25s;
+	transition: color 0.15s;
 
 	&:hover {
 		color: #fff;

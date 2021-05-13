@@ -1,6 +1,7 @@
 import Logo from "components/Logo";
 import Search from "components/Search";
 import withTooltip from "components/Tooltip";
+import ProfileIcon from "icons/user.svg";
 import { useAuth } from "providers/authProvider";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -10,7 +11,6 @@ import {
 	NavItem,
 	StyledTooltipMenuContent
 } from "./styled";
-import ProfileIcon from "icons/user.svg";
 
 const TooltipMenuContent = () => {
 	const { logout } = useAuth();

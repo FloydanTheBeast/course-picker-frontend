@@ -1,7 +1,8 @@
-import { Container } from "./styled";
+import LogoIcon from "icons/logo.svg";
 import { useAuth } from "providers/authProvider";
 import React from "react";
 import Compilations from "./Compilations";
+import { Container, Landing } from "./styled";
 
 const HomePage = () => {
 	const {
@@ -10,19 +11,26 @@ const HomePage = () => {
 
 	document.title = "MOOC · Платформа для поиска курсов";
 
-	return (
+	return isAuthenticated ? (
 		<Container>
-			{isAuthenticated ? (
-				<>
-					<h1>
-						Добро пожаловать, <span>{user.username}</span>
-					</h1>
-					<Compilations />
-				</>
-			) : (
-				<h1>Вы не авторизованы</h1>
-			)}
+			<h1>
+				Добро пожаловать, <span>{user.username}</span>
+			</h1>
+			<p>
+				Мы подготовили специальные подборки по различным тематикам,
+				посмотрите что там
+			</p>
+			<Compilations />
 		</Container>
+	) : (
+		<Landing>
+			<LogoIcon />
+			<h1>
+				<span>MOOC</span> - платформа-агрегатор для поиска необходимых
+				Вам курсов
+			</h1>
+			<p>Для использования сервиса необходима авторизация</p>
+		</Landing>
 	);
 };
 
