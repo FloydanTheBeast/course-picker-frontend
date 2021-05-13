@@ -31,6 +31,7 @@ const StyledTooltip = styled.div<StyledTooltipProps>`
 	background: #fff;
 	border: 1px solid #eee;
 	box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+	z-index: 1;
 `;
 
 const Tooltip = React.forwardRef(

@@ -1,7 +1,12 @@
+import ViewIcon from "icons/eye.svg";
+import LikeIcon from "icons/heart.svg";
 import NotFoundPage from "pages/NotFound";
 import React from "react";
 import StarRating from "react-star-ratings";
 import { CourseService } from "services/coursesService";
+import { ReviewsService } from "services/reviewsService";
+import { UsersService } from "services/usersService";
+import Reviews from "./Reviews";
 import {
 	Categories,
 	Category,
@@ -9,9 +14,11 @@ import {
 	CourseBody,
 	CourseContainer,
 	CourseHeader,
+	CourseStatusBlock,
 	CourseSubblock,
 	LinkImage,
-	Property
+	Property,
+	StyledLoader
 } from "./styled";
 
 interface CoursePageProps {
@@ -35,6 +42,8 @@ class CoursePage extends React.Component<CoursePageProps, CoursePageState> {
 	constructor(props: CoursePageProps) {
 		super(props);
 
+		document.title = "MOOC · Загрузка курса";
+
 		this.state = {
 			isFound: true,
 			isLoading: true,
@@ -43,20 +52,69 @@ class CoursePage extends React.Component<CoursePageProps, CoursePageState> {
 			course: null
 		};
 
-		CourseService.getCourse(props.courseId)
-			.then((data) =>
+		this.fetchCourses();
+	}
+
+	componentDidUpdate({ courseId }: CoursePageProps) {
+		if (this.props.courseId !== courseId) {
+			this.setState({ isLoading: true });
+			this.fetchCourses();
+		}
+	}
+
+	fetchCourses() {
+		CourseService.getCourse(this.props.courseId)
+			.then((data) => {
+				document.title = `MOOC · Курс "${data.course.courseName}"`;
 				this.setState({
 					isLoading: false,
 					isViewed: data.isViewed,
 					isFavourite: data.isFavourite,
 					course: data.course
-				})
-			)
+				});
+			})
 			.catch(() => {
 				this.setState({
 					isFound: false
 				});
 			});
+	}
+
+	toggleLike() {
+		UsersService.toggleFavourite(
+			this.state.course.id,
+			!this.state.isFavourite
+		)
+			.then(() =>
+				this.setState((prevState) => {
+					return {
+						isFavourite: !prevState.isFavourite
+					};
+				})
+			)
+			.catch(/* TODO: Отображать ошибку */);
+	}
+
+	toggleView() {
+		UsersService.toggleViewed(this.state.course.id, !this.state.isViewed)
+			.then(() =>
+				this.setState((prevState) => {
+					return {
+						isViewed: !prevState.isViewed
+					};
+				})
+			)
+			.catch(/* TODO: Отображать ошибку */);
+	}
+
+	onReviewsUpdate() {
+		ReviewsService.getReviews(this.state.course.id).then((reviews) =>
+			this.setState((prevState) => {
+				const newState = Object.assign({}, prevState);
+				newState.course.reviews = reviews;
+				return newState;
+			})
+		);
 	}
 
 	render() {
@@ -69,7 +127,7 @@ class CoursePage extends React.Component<CoursePageProps, CoursePageState> {
 		return (
 			<CourseContainer>
 				{this.state.isLoading ? (
-					"Загрузка..."
+					<StyledLoader />
 				) : (
 					<>
 						<CourseHeader
@@ -86,7 +144,7 @@ class CoursePage extends React.Component<CoursePageProps, CoursePageState> {
 										<span>
 											{course.price.amount === 0
 												? "Бесплатно"
-												: `${
+												: `${course.price.amount} ${
 														currencyMapping[
 															course.price
 																.currency
@@ -106,6 +164,22 @@ class CoursePage extends React.Component<CoursePageProps, CoursePageState> {
 										)}
 									</Property>
 								</CourseSubblock>
+								<CourseStatusBlock>
+									<LikeIcon
+										className={`like ${
+											this.state.isFavourite
+												? "active"
+												: ""
+										}`}
+										onClick={this.toggleLike.bind(this)}
+									/>
+									<ViewIcon
+										className={`view ${
+											this.state.isViewed ? "active" : ""
+										}`}
+										onClick={this.toggleView.bind(this)}
+									/>
+								</CourseStatusBlock>
 							</CourseBlock>
 							<CourseBlock>
 								<h2>Категории</h2>
@@ -126,12 +200,16 @@ class CoursePage extends React.Component<CoursePageProps, CoursePageState> {
 											src={course.vendor.icon}
 											alt={`Логотип ${course.vendor.name}`}
 										/>
-										<a href={course.vendor.link}>
+										<a
+											target="_blank"
+											rel="noreferrer"
+											href={course.vendor.link}
+										>
 											{course.vendor.name}
 										</a>
 									</LinkImage>
 								</CourseSubblock>
-								<CourseSubblock>
+								<CourseSubblock alignRight>
 									<h2>Автор</h2>
 									<LinkImage>
 										{course.author.icon && (
@@ -140,7 +218,11 @@ class CoursePage extends React.Component<CoursePageProps, CoursePageState> {
 												alt={`Картинка автора ${course.author.name}`}
 											/>
 										)}
-										<a href={course.author.link}>
+										<a
+											target="_blank"
+											rel="noreferrer"
+											href={course.author.link}
+										>
 											{course.author.name}
 										</a>
 									</LinkImage>
@@ -156,19 +238,21 @@ class CoursePage extends React.Component<CoursePageProps, CoursePageState> {
 											course.rating.external
 												.averageScore || 0
 										}
-										starDimension="20px"
+										starDimension="24px"
 										starSpacing="2px"
+										starRatedColor="#f39c12"
 									/>
 								</CourseSubblock>
-								<CourseSubblock>
+								<CourseSubblock alignRight>
 									<p>Внутренний рейтинг</p>
 									<StarRating
 										rating={
 											course.rating.internal
 												.averageScore || 0
 										}
-										starDimension="20px"
+										starDimension="24px"
 										starSpacing="2px"
+										starRatedColor="#f39c12"
 									/>
 								</CourseSubblock>
 							</CourseBlock>
@@ -176,6 +260,15 @@ class CoursePage extends React.Component<CoursePageProps, CoursePageState> {
 							<CourseBlock>
 								<h2>Описание</h2>
 								<p>{course.description}</p>
+							</CourseBlock>
+							<hr />
+							<CourseBlock>
+								<h2>Отзывы</h2>
+								<Reviews
+									courseId={course.id}
+									reviews={course.reviews}
+									onUpdate={this.onReviewsUpdate.bind(this)}
+								/>
 							</CourseBlock>
 						</CourseBody>
 					</>

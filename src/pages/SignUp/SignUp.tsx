@@ -9,6 +9,8 @@ import { SignUpData } from "services/authService";
 import { Label, SignUpForm } from "./styled";
 
 const SignUp = () => {
+	document.title = "MOOC · Регистрация";
+
 	const {
 		register,
 		handleSubmit,
@@ -50,11 +52,13 @@ const SignUp = () => {
 					closeTimeout={3000}
 				/>
 			)}
-			<Label htmlFor="">Электронная почта</Label>
+			<Label htmlFor="email">Электронная почта</Label>
 			{errors.email && (
 				<MessageBox type="error" message={errors.email.message} />
 			)}
 			<Input
+				id="email"
+				type="email"
 				{...register("email", {
 					pattern: {
 						value: /^\S+@\S+\.\S+$/,
@@ -64,21 +68,23 @@ const SignUp = () => {
 				})}
 				placeholder="Введите адрес электронной почты"
 			/>
-			<Label htmlFor="">Имя пользователя</Label>
+			<Label htmlFor="username">Имя пользователя</Label>
 			{errors.username && (
 				<MessageBox type="error" message={errors.username.message} />
 			)}
 			<Input
+				id="username"
 				{...register("username", {
 					required: { value: true, message: "Обязательное поле" }
 				})}
 				placeholder="Введите имя пользователя"
 			/>
-			<Label htmlFor="">Пароль</Label>
+			<Label htmlFor="password">Пароль</Label>
 			{errors.password && (
 				<MessageBox type="error" message={errors.password.message} />
 			)}
 			<Input
+				id="password"
 				type="password"
 				{...register("password", {
 					required: { value: true, message: "Обязательное поле" }

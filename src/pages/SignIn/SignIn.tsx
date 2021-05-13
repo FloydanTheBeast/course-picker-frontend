@@ -9,6 +9,8 @@ import { SignInData } from "services/authService";
 import { Label, SignInForm } from "./styled";
 
 const SignIn: React.FC = () => {
+	document.title = "MOOC · Вход";
+
 	const {
 		register,
 		handleSubmit,
@@ -66,7 +68,9 @@ const SignIn: React.FC = () => {
 					closeTimeout={3000}
 				/>
 			)}
-			<Label htmlFor="">Электронная почта/имя пользователя</Label>
+			<Label htmlFor="emailOrUsername">
+				Электронная почта/имя пользователя
+			</Label>
 			{errors.emailOrUsername && (
 				<MessageBox
 					type="error"
@@ -74,16 +78,18 @@ const SignIn: React.FC = () => {
 				/>
 			)}
 			<Input
+				id="emailOrUsername"
 				{...register("emailOrUsername", {
 					required: { value: true, message: "Обязательное поле" }
 				})}
 				placeholder="Введите адрес электронной почты"
 			/>
-			<Label htmlFor="">Пароль</Label>
+			<Label htmlFor="password">Пароль</Label>
 			{errors.password && (
 				<MessageBox type="error" message={errors.password.message} />
 			)}
 			<Input
+				id="password"
 				type="password"
 				{...register("password", {
 					required: { value: true, message: "Обязательное поле" }

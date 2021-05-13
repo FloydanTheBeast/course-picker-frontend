@@ -1,3 +1,4 @@
+import Loader from "components/Loader";
 import styled from "styled-components";
 
 export const CourseContainer = styled.div`
@@ -15,7 +16,7 @@ export const CourseContainer = styled.div`
 
 	hr {
 		border: none;
-		background: #ccc;
+		background: #ddd;
 		height: 1px;
 	}
 `;
@@ -57,18 +58,46 @@ export const CourseBlock = styled.div<{ horizontal?: boolean }>`
 
 	& > div {
 		flex-grow: 1;
-		flex-basis: 0;
-
-		&:nth-child(2) {
-			align-items: flex-end;
-		}
 	}
 `;
 
-export const CourseSubblock = styled.div`
+export const CourseSubblock = styled.div<{ alignRight?: boolean }>`
 	display: flex;
 	flex-flow: column nowrap;
 	margin-bottom: 10px;
+
+	${({ alignRight }) => (alignRight ? `align-items: flex-end` : ``)};
+`;
+
+export const CourseStatusBlock = styled.div`
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: flex-start !important;
+	justify-content: flex-end;
+
+	& svg {
+		width: 30px;
+		margin-left: 8px;
+		fill: #ccc;
+		transition: fill 0.2s;
+
+		&:hover {
+			cursor: pointer;
+			fill: #888;
+		}
+
+		&.like {
+			&.active {
+				fill: #e74c3c;
+			}
+		}
+
+		&.view {
+			&.active {
+				fill: #555;
+			}
+		}
+	}
 `;
 
 export const Property = styled.div`
@@ -82,6 +111,7 @@ export const Property = styled.div`
 	& span {
 		color: #555;
 		margin-right: 8px;
+		display: inline-block;
 	}
 `;
 
@@ -93,7 +123,7 @@ export const Categories = styled.div`
 export const Category = styled.div`
 	border: 1px solid #aaa;
 	padding: 5px 10px;
-	border-radius: 8px;
+	border-radius: 16px;
 	color: #888;
 	margin: 0 10px 10px 0;
 `;
@@ -110,4 +140,11 @@ export const LinkImage = styled.div`
 		line-height: 40px;
 		vertical-align: top;
 	}
+`;
+
+export const StyledLoader = styled(Loader)`
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
 `;

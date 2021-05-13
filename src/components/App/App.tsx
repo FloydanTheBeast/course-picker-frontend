@@ -2,43 +2,18 @@ import Footer from "components/Footer";
 import Navigation from "components/Navigation";
 import PrivateRoute from "components/PrivateRoute";
 import CoursePage from "pages/Course";
+import CoursesPage from "pages/Courses";
 import HomePage from "pages/Home";
 import NotFoundPage from "pages/NotFound";
+import ProfilePage from "pages/Profile";
 import SignInPage from "pages/SignIn";
 import SignUpPage from "pages/SignUp";
 import { AuthContextProvider } from "providers/authProvider";
 import { CoursesContextProvider } from "providers/coursesProvider";
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { createGlobalStyle } from "styled-components";
-
-const GlobalStyle = createGlobalStyle`
-	html, body {
-		height: 100%;
-	}
-	
-	body {
-		font-family: "PT Sans", 'Helvetica Neue', sans-serif;
-	}
-
-	#root {
-		display: flex;
-		flex-flow: column nowrap;
-		min-height: 100%;
-	}
-
-	a {
-		text-decoration: none;
-		color: #3498DB;
-	}
-
-	.content-container {
-		flex: 1 0 auto;
-		width: 70%;
-		margin: 0 auto;
-		padding: 2rem 0;
-	}
-`;
+import "../../fonts.css";
+import GlobalStyle from "./GlobalStyle";
 
 class App extends Component {
 	render(): React.ReactNode {
@@ -59,6 +34,11 @@ class App extends Component {
 							<Route path="/signin">
 								<SignInPage />
 							</Route>
+							<PrivateRoute exact path="/courses/">
+								<CoursesContextProvider>
+									<CoursesPage />
+								</CoursesContextProvider>
+							</PrivateRoute>
 							<PrivateRoute
 								path="/courses/:courseId"
 								render={({ match }) => {
@@ -68,6 +48,10 @@ class App extends Component {
 										/>
 									);
 								}}
+							/>
+							<PrivateRoute
+								path="/profile"
+								component={ProfilePage}
 							/>
 							<Route path="*">
 								<NotFoundPage />

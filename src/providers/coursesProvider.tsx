@@ -10,19 +10,23 @@ interface ProviderProps {
 interface State {
 	countPages: number;
 	courses: {
-		[key: number]: unknown[];
+		[key: number]: CoursePreview[];
 	};
+	searchQuery: string;
+	categories: string;
 }
 
 enum ActionTypes {
-	"addCourses"
+	"addCourses",
+	"replaceCourses"
 }
 
 interface ActionPayload {
 	countPages: number;
 	pageNumber: number;
-	// FIXME: Задать интерфейс курса
-	courses: unknown[];
+	courses: CoursePreview[];
+	searchQuery?: string;
+	categories?: string;
 }
 
 interface Action {
@@ -32,7 +36,10 @@ interface Action {
 
 const coursesReducer = (
 	coursesState: State,
-	{ type, payload: { pageNumber, countPages, courses } }: Action
+	{
+		type,
+		payload: { pageNumber, countPages, courses, searchQuery, categories }
+	}: Action
 ): State => {
 	switch (type) {
 		case "addCourses": {
@@ -40,21 +47,31 @@ const coursesReducer = (
 				[pageNumber]: courses
 			});
 
-			return Object.assign(
-				coursesState,
-				{ countPages },
-				{
-					courses: newCourses
+			return Object.assign({}, coursesState, {
+				countPages,
+				courses: newCourses
+			});
+		}
+		case "replaceCourses": {
+			return Object.assign({}, coursesState, {
+				countPages,
+				searchQuery,
+				categories,
+				courses: {
+					[pageNumber]: courses
 				}
-			);
+			});
 		}
 	}
 };
 
 interface CoursesContext {
-	getCourses: (
-		pageNumber: number
-	) => Promise<{ countPages: number; courses: unknown[] }>;
+	coursesState: State;
+	fetchCourses: (
+		pageNumber: number,
+		searchQuery?: string,
+		categories?: string
+	) => void;
 }
 
 const CoursesContext = createContext({} as CoursesContext);
@@ -64,37 +81,70 @@ const CoursesContextProvider: React.FC<ProviderProps> = ({
 }: ProviderProps) => {
 	const [coursesState, dispatchCoursesState] = useReducer(coursesReducer, {
 		countPages: null,
-		courses: {}
+		courses: {},
+		searchQuery: "",
+		categories: ""
 	});
 
 	return (
 		<CoursesContext.Provider
 			value={{
-				getCourses: async (pageNumber: number) => {
+				coursesState,
+				fetchCourses: async (
+					pageNumber: number,
+					searchQuery = "",
+					categories = ""
+				): Promise<void> => {
+					if (
+						coursesState.searchQuery !== searchQuery ||
+						coursesState.categories != categories
+					) {
+						const {
+							courses,
+							countPages
+						} = await CourseService.getCourses(
+							pageNumber,
+							PAGE_SIZE,
+							searchQuery,
+							categories
+						);
+
+						dispatchCoursesState({
+							type: "replaceCourses",
+							payload: {
+								pageNumber,
+								countPages,
+								courses,
+								searchQuery,
+								categories
+							}
+						});
+
+						return;
+					}
+
 					if (pageNumber in coursesState.courses) {
-						return {
-							countPages: coursesState.countPages,
-							courses: coursesState.courses[pageNumber]
-						};
+						return;
 					}
 
 					const {
-						data: fetchedCourses
-					} = await CourseService.getCourses(pageNumber, PAGE_SIZE);
+						courses,
+						countPages
+					} = await CourseService.getCourses(
+						pageNumber,
+						PAGE_SIZE,
+						searchQuery
+					);
 
 					dispatchCoursesState({
 						type: "addCourses",
 						payload: {
 							pageNumber,
-							countPages: fetchedCourses.countPages,
-							courses: fetchedCourses.courses
+							countPages,
+							courses,
+							searchQuery
 						}
 					});
-
-					return {
-						countPages: coursesState.countPages,
-						courses: coursesState.courses[pageNumber]
-					};
 				}
 			}}
 		>

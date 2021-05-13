@@ -12,9 +12,12 @@ const StyledCourseCard = styled.div`
 	border-radius: 8px;
 	overflow: hidden;
 	box-shadow: 2px 2px 6px 1px rgba(0, 0, 0, 0.25);
+	transition: all 0.2s ease-in-out;
 
 	&:hover {
 		cursor: pointer;
+		transform: scale(1.05);
+		box-shadow: 2px 2px 5px 4px rgba(0, 0, 0, 0.4);
 	}
 `;
 
@@ -75,8 +78,10 @@ const StyledCouseCardBody = styled.div`
 	}
 
 	.price {
+		font-size: 16px;
 		margin: 0;
-		color: #666;
+		color: #555;
+		font-weight: 400;
 	}
 
 	& p {
@@ -118,8 +123,9 @@ const CourseCard: React.FC<CourseCardProps> = (props: CourseCardProps) => {
 							rating={props.rating.external.averageScore || 0}
 							starDimension="20px"
 							starSpacing="2px"
+							starRatedColor="#f39c12"
 						/>
-						<h3 className="price">
+						<span className="price">
 							{props.price.amount === 0 ? (
 								"Бесплатно"
 							) : (
@@ -129,7 +135,7 @@ const CourseCard: React.FC<CourseCardProps> = (props: CourseCardProps) => {
 										props.price.currency}
 								</>
 							)}
-						</h3>
+						</span>
 					</div>
 					<p>{props.shortDescription}</p>
 				</StyledCouseCardBody>

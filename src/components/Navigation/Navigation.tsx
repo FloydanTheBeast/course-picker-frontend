@@ -1,9 +1,11 @@
 import Logo from "components/Logo";
+import Search from "components/Search";
 import withTooltip from "components/Tooltip";
+import ProfileIcon from "icons/user.svg";
 import { useAuth } from "providers/authProvider";
 import React from "react";
+import { Link } from "react-router-dom";
 import {
-	MenuIcon,
 	NavContainer,
 	NavGroup,
 	NavItem,
@@ -15,6 +17,7 @@ const TooltipMenuContent = () => {
 
 	return (
 		<StyledTooltipMenuContent className="tooltip-menu">
+			<Link to="/profile">Профиль</Link>
 			<a
 				onClick={() =>
 					logout().catch(() => {
@@ -34,15 +37,23 @@ const Navigation = () => {
 		authState: { isAuthenticated }
 	} = useAuth();
 
-	const ProfileTooltip = withTooltip(<MenuIcon />, <TooltipMenuContent />, {
-		offsetTop: 10
-	});
+	const ProfileTooltip = withTooltip(
+		<ProfileIcon />,
+		<TooltipMenuContent />,
+		{
+			offsetTop: 10
+		}
+	);
+
 	return (
 		<NavContainer>
 			<Logo />
 			<NavGroup>
 				{isAuthenticated ? (
-					<ProfileTooltip />
+					<>
+						<Search />
+						<ProfileTooltip />
+					</>
 				) : (
 					<>
 						<NavItem activeClassName="active" to="/signup">

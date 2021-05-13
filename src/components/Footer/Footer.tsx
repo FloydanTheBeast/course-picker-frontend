@@ -4,7 +4,7 @@ import styled from "styled-components";
 const StyledFooter = styled.footer`
 	width: 100%;
 	height: 50px;
-	background: #000;
+	background: #ffd7ba;
 `;
 
 const Footer: React.FC = () => {

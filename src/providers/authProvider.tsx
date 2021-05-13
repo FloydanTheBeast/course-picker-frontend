@@ -13,6 +13,7 @@ interface AuthState {
 	isAuthenticated: boolean;
 	accessToken?: string;
 	refreshToken?: string;
+	user?: UserData;
 }
 
 enum ActionTypes {
@@ -23,6 +24,7 @@ enum ActionTypes {
 interface AuthActionPayload {
 	accessToken: string;
 	refreshToken: string;
+	user: UserData;
 }
 
 interface AuthAction {
@@ -35,11 +37,14 @@ const authReducer = (authState: AuthState, action: AuthAction): AuthState => {
 
 	switch (action.type) {
 		case "signin":
+			// TODO: Добавить слушателя для localStorage, выходить при изменении токенов или пользователя
+
 			localStorage.setItem(ACCESS_TOKEN_KEY, action.payload.accessToken);
 			localStorage.setItem(
 				REFRESH_TOKEN_KEY,
 				action.payload.refreshToken
 			);
+			localStorage.setItem("user", JSON.stringify(action.payload.user));
 
 			newAuthState = Object.assign(
 				{ isAuthenticated: true },
@@ -70,12 +75,20 @@ const AuthContextProvider: React.FC<AuthProps> = ({ children }: AuthProps) => {
 		((): AuthState => {
 			const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
 			const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
+			let user;
 
-			return accessToken && refreshToken
+			try {
+				user = JSON.parse(localStorage.getItem("user"));
+			} catch (error) {
+				return { isAuthenticated: false };
+			}
+
+			return accessToken && refreshToken && user?.username
 				? {
 						isAuthenticated: true,
 						accessToken,
-						refreshToken
+						refreshToken,
+						user
 						// eslint-disable-next-line no-mixed-spaces-and-tabs
 				  }
 				: { isAuthenticated: false };

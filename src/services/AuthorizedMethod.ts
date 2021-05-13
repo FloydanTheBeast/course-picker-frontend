@@ -12,23 +12,29 @@ const AuthorizedMethod = (
 
 	descriptor.value = (...rest) => {
 		return method
-			.call(target, rest, {
+			.call(target, ...rest, {
 				Authorization: `Bearer ${localStorage.getItem("accessToken")}`
 			})
 			.catch((error: AxiosError) => {
 				if (error.response.status === 401) {
-					return AuthService.refreshToken().then(() => {
-						console.log("Rerunning method...");
-						return method
-							.call(target, rest, {
-								Authorization: `Bearer ${localStorage.getItem(
-									"accessToken"
-								)}`
-							})
-							.catch((error: AxiosError) => {
-								throw error;
-							});
-					});
+					return AuthService.refreshToken()
+						.then(() => {
+							console.log("Rerunning method...");
+							return method
+								.call(target, ...rest, {
+									Authorization: `Bearer ${localStorage.getItem(
+										"accessToken"
+									)}`
+								})
+								.catch((error: AxiosError) => {
+									throw error;
+								});
+						})
+						.catch(() => {
+							localStorage.removeItem("accessToken");
+							localStorage.removeItem("refreshToken");
+							window.location.replace("/signin");
+						});
 				} else {
 					throw error;
 				}
