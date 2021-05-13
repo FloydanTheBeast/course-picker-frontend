@@ -353,6 +353,7 @@ const SearchModal: React.FC<SearchModalProps> = ({
 							return (
 								<Link
 									to={`/courses/${course.id}`}
+									onClick={onClose}
 									className="course-preview"
 									key={index}
 								>

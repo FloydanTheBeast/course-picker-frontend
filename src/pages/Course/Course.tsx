@@ -52,7 +52,18 @@ class CoursePage extends React.Component<CoursePageProps, CoursePageState> {
 			course: null
 		};
 
-		CourseService.getCourse(props.courseId)
+		this.fetchCourses();
+	}
+
+	componentDidUpdate({ courseId }: CoursePageProps) {
+		if (this.props.courseId !== courseId) {
+			this.setState({ isLoading: true });
+			this.fetchCourses();
+		}
+	}
+
+	fetchCourses() {
+		CourseService.getCourse(this.props.courseId)
 			.then((data) => {
 				document.title = `MOOC · Курс "${data.course.courseName}"`;
 				this.setState({
