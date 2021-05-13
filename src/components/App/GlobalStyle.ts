@@ -1,7 +1,7 @@
-import { createGlobalStyle } from "styled-components";
-import RobotoRegular from "fonts/Roboto/Roboto-Regular.ttf";
-import RobotoMedium from "fonts/Roboto/Roboto-Medium.ttf";
 import RobotoLight from "fonts/Roboto/Roboto-Light.ttf";
+import RobotoMedium from "fonts/Roboto/Roboto-Medium.ttf";
+import RobotoRegular from "fonts/Roboto/Roboto-Regular.ttf";
+import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
 	@font-face {
@@ -40,6 +40,7 @@ const GlobalStyle = createGlobalStyle`
 
 	body {
 		font-family: 'Roboto', "PT Sans", 'Helvetica Neue', sans-serif;
+		overflow-x: hidden;
 	}
 
 	#root {

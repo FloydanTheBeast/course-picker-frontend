@@ -17,7 +17,8 @@ import {
 	CourseStatusBlock,
 	CourseSubblock,
 	LinkImage,
-	Property
+	Property,
+	StyledLoader
 } from "./styled";
 
 interface CoursePageProps {
@@ -115,7 +116,7 @@ class CoursePage extends React.Component<CoursePageProps, CoursePageState> {
 		return (
 			<CourseContainer>
 				{this.state.isLoading ? (
-					"Загрузка..."
+					<StyledLoader />
 				) : (
 					<>
 						<CourseHeader

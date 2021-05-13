@@ -1,6 +1,7 @@
 import ErrorIcon from "icons/error.svg";
 import SuccessIcon from "icons/success.svg";
 import React from "react";
+import ReactDOM from "react-dom";
 import styled from "styled-components";
 
 enum MessageBoxTypes {
@@ -15,6 +16,7 @@ interface MessageBoxProps {
 	closeTimeout?: number;
 	onClose?: () => void;
 	primary?: boolean;
+	absolute?: boolean;
 }
 
 const StyledMessageBox = styled.div`
@@ -26,6 +28,28 @@ const StyledMessageBox = styled.div`
 	border-radius: 8px;
 	overflow: hidden;
 	box-shadow: 2px 2px 6px 1px rgb(0 0 0 / 25%);
+
+	&.absolute {
+		position: absolute;
+		right: 20px;
+		bottom: 20px;
+		background-color: #fff;
+		animation: messagebox-appear 0.5s ease-out 1;
+
+		& .message {
+			margin-right: 10px;
+		}
+
+		@keyframes messagebox-appear {
+			from {
+				right: -100px;
+			}
+
+			to {
+				right: 20px;
+			}
+		}
+	}
 
 	& .icon-container {
 		display: flex;
@@ -86,7 +110,8 @@ const MessageBox: React.FC<MessageBoxProps> = ({
 	closable,
 	closeTimeout,
 	onClose,
-	primary
+	primary,
+	absolute
 }: MessageBoxProps) => {
 	let Icon;
 
@@ -103,17 +128,23 @@ const MessageBox: React.FC<MessageBoxProps> = ({
 		setTimeout(onClose, closeTimeout || 2000);
 	}
 
-	return (
-		<StyledMessageBox className={`${type} ${primary ? "primary" : ""}`}>
+	const Element = (
+		<StyledMessageBox
+			className={`${type} ${primary ? "primary" : ""} ${
+				absolute ? "absolute" : ""
+			}`}
+		>
 			<div className="icon-container">
 				<Icon className="icon" />
 			</div>
-			<div>
+			<div className="message">
 				<h3>{type === "error" ? "Ошибка" : "Успех"}</h3>
 				<p>{message}</p>
 			</div>
 		</StyledMessageBox>
 	);
+
+	return absolute ? ReactDOM.createPortal(Element, document.body) : Element;
 };
 
 export default MessageBox;

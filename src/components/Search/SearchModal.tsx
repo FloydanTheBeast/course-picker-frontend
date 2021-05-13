@@ -1,3 +1,4 @@
+import Loader from "components/Loader";
 import FiltersIcon from "icons/filters.svg";
 import SearchIcon from "icons/search.svg";
 import { useCourses } from "providers/coursesProvider";
@@ -43,6 +44,7 @@ const ContentContainer = styled.div`
 `;
 
 const SearchRow = styled.div`
+	width: 100%;
 	display: flex;
 	flex-flow: row nowrap;
 
@@ -153,10 +155,20 @@ const SearchInput = styled.input`
 `;
 
 const CoursePreviewList = styled.div`
+	position: relative;
 	display: flex;
 	flex-flow: column;
 	color: #fff;
 	width: 100%;
+
+	& .loader {
+		position: absolute;
+		top: 100px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 30px;
+		height: 30px;
+	}
 
 	& .course-preview {
 		display: flex;
@@ -205,6 +217,7 @@ const SearchModal: React.FC<SearchModalProps> = ({
 	const [filtersVisible, setFiltersVisible] = useState(false);
 	const [categories, setCategories] = useState<Category[]>([]);
 	const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
+	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
 		CategoriesService.getCategories().then((categories) =>
@@ -265,17 +278,23 @@ const SearchModal: React.FC<SearchModalProps> = ({
 	};
 
 	const updatePreview = useCallback(() => {
-		if (searchInputRef.current.value || selectedCategories.length)
+		if (searchInputRef.current.value || selectedCategories.length) {
+			setIsLoading(true);
 			fetchCourses(
 				1,
 				searchInputRef.current.value,
 				selectedCategories.join(",")
 			);
+		}
 	}, [fetchCourses, selectedCategories]);
 
 	useEffect(() => {
 		updatePreview();
 	}, [updatePreview]);
+
+	useEffect(() => {
+		setIsLoading(false);
+	}, [courses]);
 
 	let updatePreviewTimer: NodeJS.Timeout;
 
@@ -328,6 +347,7 @@ const SearchModal: React.FC<SearchModalProps> = ({
 					</div>
 				</FiltersContainer>
 				<CoursePreviewList>
+					{isLoading && <Loader />}
 					{1 in courses &&
 						courses[1].slice(0, 10).map((course, index) => {
 							return (

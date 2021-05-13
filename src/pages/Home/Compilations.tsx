@@ -1,8 +1,9 @@
+import axios from "axios";
+import CourseList from "components/CourseList";
+import Loader from "components/Loader";
 import React from "react";
 import { ComplilationsService } from "services/compilationsService";
 import styled from "styled-components";
-import axios from "axios";
-import CourseList from "components/CourseList";
 
 interface CompilationsState {
 	compilations: {
@@ -15,6 +16,13 @@ interface CompilationsState {
 	}[];
 	selectedCompilation: number;
 }
+
+const StyledLoader = styled(Loader)`
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+`;
 
 const CompilationList = styled.div`
 	display: flex;
@@ -114,7 +122,11 @@ class Compilations extends React.Component<any, CompilationsState> {
 						);
 					})}
 				</CompilationList>
-				<CourseList courses={courses} />
+				{courses.length ? (
+					<CourseList courses={courses} />
+				) : (
+					this.state.selectedCompilation && <StyledLoader />
+				)}
 			</>
 		);
 	}

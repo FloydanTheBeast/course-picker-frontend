@@ -1,3 +1,4 @@
+import Loader from "components/Loader";
 import styled from "styled-components";
 
 export const CourseContainer = styled.div`
@@ -139,4 +140,11 @@ export const LinkImage = styled.div`
 		line-height: 40px;
 		vertical-align: top;
 	}
+`;
+
+export const StyledLoader = styled(Loader)`
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
 `;
