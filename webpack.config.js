@@ -7,6 +7,7 @@ module.exports = {
 	devtool: "eval",
 	output: {
 		path: path.resolve(__dirname, "build"),
+		publicPath: "./",
 		filename: "bundle.js"
 	},
 	resolve: {
@@ -59,7 +60,6 @@ module.exports = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			template: "./src/index.html",
-			publicPath: "/",
 			favicon: "./assets/icons/favicon.ico"
 		})
 	]
