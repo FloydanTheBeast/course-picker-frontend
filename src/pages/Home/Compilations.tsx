@@ -29,17 +29,15 @@ const CompilationList = styled.div`
 	flex-flow: row nowrap;
 	margin-bottom: 20px;
 	overflow-x: auto;
-	padding: 10px;
+	padding: 10px 0;
 `;
 
 const CompilationButton = styled.div<{ icon: string }>`
-	min-width: 50px;
-	min-height: 50px;
-	background-image: ${(props) => `url(${props.icon})`};
-	background-position: center center;
-	background-repeat: no-repeat;
+	min-width: 60px;
+	min-height: 60px;
+	background: ${(props) => `url(${props.icon})`} no-repeat center center;
 	background-size: 95%;
-	border: 2px solid #eee;
+	border: 4px solid #eee;
 	border-radius: 50%;
 	margin-right: 20px;
 	transition: all 0.3s;
@@ -125,7 +123,7 @@ class Compilations extends React.Component<any, CompilationsState> {
 				{courses.length ? (
 					<CourseList courses={courses} />
 				) : (
-					this.state.selectedCompilation && <StyledLoader />
+					this.state.selectedCompilation !== null && <StyledLoader />
 				)}
 			</>
 		);
