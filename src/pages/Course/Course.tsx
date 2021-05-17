@@ -134,6 +134,14 @@ class CoursePage extends React.Component<CoursePageProps, CoursePageState> {
 							previewImageLink={course.previewImageLink}
 						>
 							<h1>{course.courseName}</h1>
+							<a
+								className="course-link"
+								href={course.link}
+								rel="noreferrer"
+								target="_blank"
+							>
+								Перейти на страницу курса
+							</a>
 							<div className="header_darken"></div>
 						</CourseHeader>
 						<CourseBody>
