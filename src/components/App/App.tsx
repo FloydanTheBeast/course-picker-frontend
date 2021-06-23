@@ -58,8 +58,8 @@ class App extends Component {
 							</Route>
 						</Switch>
 					</div>
+					<Footer />
 				</BrowserRouter>
-				<Footer />
 				<GlobalStyle />
 			</AuthContextProvider>
 		);
