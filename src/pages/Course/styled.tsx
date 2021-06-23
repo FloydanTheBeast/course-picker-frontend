@@ -29,6 +29,22 @@ export const CourseHeader = styled.div<{ previewImageLink: string }>`
 	background-repeat: no-repeat;
 	background-size: cover;
 
+	& .course-link {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		padding: 12px 0;
+		text-align: center;
+		background: #3498db;
+		color: #eee;
+		transition: all 0.2s;
+
+		&:hover {
+			background-color: #207bb8;
+		}
+	}
+
 	& .header_darken {
 		width: 100%;
 		height: 100%;

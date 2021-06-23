@@ -7,8 +7,6 @@ type CourseCardProps = CoursePreview;
 
 const StyledCourseCard = styled.div`
 	height: 100%;
-	box-sizing: border-box;
-	border: 0.5px solid #aaa;
 	border-radius: 8px;
 	overflow: hidden;
 	box-shadow: 2px 2px 6px 1px rgba(0, 0, 0, 0.25);

@@ -7,7 +7,7 @@ module.exports = {
 	devtool: "eval",
 	output: {
 		path: path.resolve(__dirname, "build"),
-		publicPath: "./",
+		publicPath: "/",
 		filename: "bundle.js"
 	},
 	resolve: {
@@ -23,7 +23,7 @@ module.exports = {
 		}
 	},
 	devServer: {
-		contentBase: "./build",
+		contentBase: path.resolve(__dirname, "build"),
 		historyApiFallback: true,
 		port: 8080
 	},
